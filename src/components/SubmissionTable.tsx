@@ -95,7 +95,17 @@ const priorityColors = {
   low: "bg-success/10 text-success border-success/30"
 };
 
-export const SubmissionTable = () => {
+interface SubmissionTableProps {
+  statusFilter?: string;
+  reportTypeFilter?: string;
+  dateRangeFilter?: string;
+}
+
+export const SubmissionTable = ({ 
+  statusFilter = "all", 
+  reportTypeFilter = "all", 
+  dateRangeFilter = "all" 
+}: SubmissionTableProps) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
   const formatDate = (dateStr: string) => {
@@ -114,6 +124,25 @@ export const SubmissionTable = () => {
     return diffDays > 0 ? diffDays : 0;
   };
 
+  // Filter the data based on the active filters
+  const filteredData = mockData.filter((submission) => {
+    // Status filter
+    if (statusFilter !== "all" && statusFilter !== "operators") {
+      if (submission.status !== statusFilter) return false;
+    }
+    
+    // Report type filter
+    if (reportTypeFilter !== "all") {
+      const reportTypeKey = submission.reportType.toLowerCase().replace(/\s+/g, '-');
+      if (reportTypeKey !== reportTypeFilter) return false;
+    }
+    
+    // Date range filter would go here (currently just showing all data)
+    // This would typically filter by submission date or due date based on dateRangeFilter
+    
+    return true;
+  });
+
   return (
     <Card className="shadow-card">
       <CardHeader className="border-b border-border">
@@ -124,7 +153,7 @@ export const SubmissionTable = () => {
           </CardTitle>
           <div className="flex items-center space-x-2">
             <Badge variant="outline" className="text-xs">
-              {mockData.length} Total Entries
+              {filteredData.length} Total Entries
             </Badge>
             <Button variant="outline" size="sm">
               <Calendar className="h-4 w-4 mr-2" />
@@ -149,7 +178,7 @@ export const SubmissionTable = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {mockData.map((submission) => (
+              {filteredData.map((submission) => (
                 <TableRow 
                   key={submission.id} 
                   className="hover:bg-muted/30 transition-smooth cursor-pointer"

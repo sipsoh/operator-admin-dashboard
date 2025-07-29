@@ -1,30 +1,46 @@
+import { useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { DashboardStats } from "@/components/DashboardStats";
 import { SubmissionTable } from "@/components/SubmissionTable";
-import { FilterPanel } from "@/components/FilterPanel";
-import { RecentActivity } from "@/components/RecentActivity";
 
 const Index = () => {
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [reportType, setReportType] = useState("all");
+  const [dateRange, setDateRange] = useState("month");
+
+  const handleFilterChange = (filter: string) => {
+    setActiveFilter(filter);
+  };
+
+  const handleReportTypeChange = (value: string) => {
+    setReportType(value);
+  };
+
+  const handleDateRangeChange = (value: string) => {
+    setDateRange(value);
+  };
+
   return (
-    <DashboardLayout>
+    <DashboardLayout
+      reportType={reportType}
+      dateRange={dateRange}
+      onReportTypeChange={handleReportTypeChange}
+      onDateRangeChange={handleDateRangeChange}
+    >
       <div className="space-y-8">
         {/* Dashboard Statistics */}
-        <DashboardStats />
+        <DashboardStats 
+          activeFilter={activeFilter}
+          onFilterChange={handleFilterChange}
+        />
 
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          {/* Filters Panel */}
-          <div className="lg:col-span-1">
-            <div className="space-y-6">
-              <FilterPanel />
-              <RecentActivity />
-            </div>
-          </div>
-
-          {/* Main Table */}
-          <div className="lg:col-span-3">
-            <SubmissionTable />
-          </div>
+        {/* Main Table */}
+        <div className="w-full">
+          <SubmissionTable 
+            statusFilter={activeFilter}
+            reportTypeFilter={reportType}
+            dateRangeFilter={dateRange}
+          />
         </div>
       </div>
     </DashboardLayout>

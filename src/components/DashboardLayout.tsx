@@ -1,13 +1,43 @@
-import { Search, Bell, Settings, Filter, Download, Plus } from "lucide-react";
+import { Search, Bell, Settings, Filter, Download, Plus, Calendar } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
+  reportType: string;
+  dateRange: string;
+  onReportTypeChange: (value: string) => void;
+  onDateRangeChange: (value: string) => void;
 }
 
-export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
+export const DashboardLayout = ({ 
+  children, 
+  reportType, 
+  dateRange, 
+  onReportTypeChange, 
+  onDateRangeChange 
+}: DashboardLayoutProps) => {
+  const reportTypes = [
+    { value: "all", label: "All Report Types" },
+    { value: "monthly-financial", label: "Monthly Financial" },
+    { value: "rent-schedule", label: "Rent Schedule" },
+    { value: "lease-agreement", label: "Lease Agreement" },
+    { value: "quarterly-review", label: "Quarterly Review" },
+    { value: "insurance-documents", label: "Insurance Documents" },
+    { value: "compliance-report", label: "Compliance Report" }
+  ];
+
+  const dateRanges = [
+    { value: "all", label: "All Time" },
+    { value: "today", label: "Today" },
+    { value: "week", label: "This Week" },
+    { value: "month", label: "This Month" },
+    { value: "quarter", label: "This Quarter" },
+    { value: "year", label: "This Year" }
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       {/* Top Navigation */}
@@ -36,11 +66,6 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               </div>
               
               <Button variant="outline" size="sm">
-                <Filter className="h-4 w-4 mr-2" />
-                Filters
-              </Button>
-              
-              <Button variant="outline" size="sm">
                 <Download className="h-4 w-4 mr-2" />
                 Export
               </Button>
@@ -60,6 +85,48 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                 </Button>
               </div>
             </div>
+          </div>
+          
+          {/* Filter Bar */}
+          <div className="flex items-center space-x-4 mt-4 pt-4 border-t border-border">
+            <div className="flex items-center space-x-2">
+              <label className="text-sm font-medium text-foreground">Report Type:</label>
+              <Select value={reportType} onValueChange={onReportTypeChange}>
+                <SelectTrigger className="w-48">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {reportTypes.map((type) => (
+                    <SelectItem key={type.value} value={type.value}>
+                      {type.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="flex items-center space-x-2">
+              <label className="text-sm font-medium text-foreground">Date Range:</label>
+              <Select value={dateRange} onValueChange={onDateRangeChange}>
+                <SelectTrigger className="w-40">
+                  <Calendar className="h-4 w-4 mr-2" />
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {dateRanges.map((range) => (
+                    <SelectItem key={range.value} value={range.value}>
+                      {range.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="flex-1" />
+            
+            <Button variant="outline" size="sm">
+              Clear Filters
+            </Button>
           </div>
         </div>
       </header>
