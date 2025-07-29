@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { StatusBadge, Status } from "./StatusBadge";
 import { MoreHorizontal, Eye, Edit, MessageSquare, Calendar, Building, User } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { ViewDetailsDialog } from "./ViewDetailsDialog";
+import { EditStatusDialog } from "./EditStatusDialog";
+import { AddCommentDialog } from "./AddCommentDialog";
+import { useToast } from "@/hooks/use-toast";
 
 interface Submission {
   id: string;
@@ -107,6 +111,14 @@ export const SubmissionTable = ({
   dateRangeFilter = "all" 
 }: SubmissionTableProps) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [viewDetailsOpen, setViewDetailsOpen] = useState(false);
+  const [editStatusOpen, setEditStatusOpen] = useState(false);
+  const [addCommentOpen, setAddCommentOpen] = useState(false);
+  const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
+  const { toast } = useToast();
+
+  // Mock data with state - in real app this would come from a state management system
+  const [submissions, setSubmissions] = useState<Submission[]>(mockData);
 
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString('en-US', {
@@ -124,8 +136,8 @@ export const SubmissionTable = ({
     return diffDays > 0 ? diffDays : 0;
   };
 
-  // Filter the data based on the active filters
-  const filteredData = mockData.filter((submission) => {
+  // Filter the data based on the active filters  
+  const filteredData = submissions.filter((submission) => {
     // Status filter
     if (statusFilter !== "all" && statusFilter !== "operators") {
       if (submission.status !== statusFilter) return false;
@@ -142,6 +154,42 @@ export const SubmissionTable = ({
     
     return true;
   });
+
+  // Dialog handlers
+  const handleViewDetails = (submission: Submission) => {
+    setSelectedSubmission(submission);
+    setViewDetailsOpen(true);
+  };
+
+  const handleEditStatus = (submission: Submission) => {
+    setSelectedSubmission(submission);
+    setEditStatusOpen(true);
+  };
+
+  const handleAddComment = (submission: Submission) => {
+    setSelectedSubmission(submission);
+    setAddCommentOpen(true);
+  };
+
+  const handleStatusUpdate = (submissionId: string, newStatus: Status, reason: string) => {
+    setSubmissions(prev => 
+      prev.map(sub => 
+        sub.id === submissionId 
+          ? { ...sub, status: newStatus, notes: sub.notes ? `${sub.notes}\n\nStatus changed to ${newStatus}: ${reason}` : `Status changed to ${newStatus}: ${reason}` }
+          : sub
+      )
+    );
+  };
+
+  const handleCommentAdd = (submissionId: string, comment: string, commentType: string) => {
+    setSubmissions(prev => 
+      prev.map(sub => 
+        sub.id === submissionId 
+          ? { ...sub, notes: sub.notes ? `${sub.notes}\n\n[${commentType}] ${comment}` : `[${commentType}] ${comment}` }
+          : sub
+      )
+    );
+  };
 
   return (
     <Card className="shadow-card">
@@ -247,28 +295,51 @@ export const SubmissionTable = ({
                           <MoreHorizontal className="h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem>
-                          <Eye className="h-4 w-4 mr-2" />
-                          View Details
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Edit className="h-4 w-4 mr-2" />
-                          Edit Status
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <MessageSquare className="h-4 w-4 mr-2" />
-                          Add Comment
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
+                       <DropdownMenuContent align="end">
+                         <DropdownMenuItem onClick={() => handleViewDetails(submission)}>
+                           <Eye className="h-4 w-4 mr-2" />
+                           View Details
+                         </DropdownMenuItem>
+                         <DropdownMenuItem onClick={() => handleEditStatus(submission)}>
+                           <Edit className="h-4 w-4 mr-2" />
+                           Edit Status
+                         </DropdownMenuItem>
+                         <DropdownMenuItem onClick={() => handleAddComment(submission)}>
+                           <MessageSquare className="h-4 w-4 mr-2" />
+                           Add Comment
+                         </DropdownMenuItem>
+                       </DropdownMenuContent>
+                     </DropdownMenu>
+                   </TableCell>
+                 </TableRow>
+               ))}
+             </TableBody>
+           </Table>
+         </div>
+       </CardContent>
+
+       {/* Dialog Components */}
+       <ViewDetailsDialog
+         submission={selectedSubmission}
+         open={viewDetailsOpen}
+         onOpenChange={setViewDetailsOpen}
+       />
+       
+       <EditStatusDialog
+         submissionId={selectedSubmission?.id || null}
+         currentStatus={selectedSubmission?.status || null}
+         open={editStatusOpen}
+         onOpenChange={setEditStatusOpen}
+         onStatusUpdate={handleStatusUpdate}
+       />
+       
+       <AddCommentDialog
+         submissionId={selectedSubmission?.id || null}
+         operatorName={selectedSubmission?.operator || null}
+         open={addCommentOpen}
+         onOpenChange={setAddCommentOpen}
+         onCommentAdd={handleCommentAdd}
+       />
+     </Card>
+   );
+ };
