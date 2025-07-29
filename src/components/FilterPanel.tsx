@@ -129,7 +129,7 @@ export const FilterPanel = () => {
 
         {/* Action Buttons */}
         <div className="space-y-2 pt-4 border-t border-border">
-          <Button className="w-full bg-gradient-primary hover:opacity-90">
+          <Button className="w-full bg-primary hover:bg-primary/90">
             Apply Filters
           </Button>
           <Button variant="outline" className="w-full">

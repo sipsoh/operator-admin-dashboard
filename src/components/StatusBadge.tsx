@@ -11,27 +11,27 @@ interface StatusBadgeProps {
 const statusConfig = {
   approved: {
     label: "Approved",
-    className: "bg-success-light text-success border-success/20 hover:bg-success-light/80"
+    className: "bg-success/10 text-success border-success/30 hover:bg-success/20 font-medium"
   },
   pending: {
     label: "Pending",
-    className: "bg-pending-light text-pending border-pending/20 hover:bg-pending-light/80"
+    className: "bg-pending/10 text-pending border-pending/30 hover:bg-pending/20 font-medium"
   },
   "non-compliant": {
     label: "Non-Compliant",
-    className: "bg-danger-light text-danger border-danger/20 hover:bg-danger-light/80"
+    className: "bg-danger/10 text-danger border-danger/30 hover:bg-danger/20 font-medium"
   },
   overdue: {
     label: "Overdue",
-    className: "bg-danger text-danger-foreground border-danger hover:bg-danger/90"
+    className: "bg-danger text-danger-foreground border-danger hover:bg-danger/90 font-medium"
   },
   "in-review": {
     label: "In Review",
-    className: "bg-warning-light text-warning border-warning/20 hover:bg-warning-light/80"
+    className: "bg-warning/10 text-warning border-warning/30 hover:bg-warning/20 font-medium"
   },
   submitted: {
     label: "Submitted",
-    className: "bg-primary-glow text-primary border-primary/20 hover:bg-primary-glow/80"
+    className: "bg-primary/10 text-primary border-primary/30 hover:bg-primary/20 font-medium"
   }
 };
 

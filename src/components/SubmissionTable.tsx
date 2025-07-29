@@ -90,9 +90,9 @@ const mockData: Submission[] = [
 ];
 
 const priorityColors = {
-  high: "bg-danger text-danger-foreground",
-  medium: "bg-warning text-warning-foreground", 
-  low: "bg-success text-success-foreground"
+  high: "bg-danger/10 text-danger border-danger/30",
+  medium: "bg-warning/10 text-warning border-warning/30", 
+  low: "bg-success/10 text-success border-success/30"
 };
 
 export const SubmissionTable = () => {

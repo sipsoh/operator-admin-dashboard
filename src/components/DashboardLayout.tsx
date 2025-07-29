@@ -11,12 +11,12 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
     <div className="min-h-screen bg-background">
       {/* Top Navigation */}
-      <header className="bg-dashboard-header border-b border-border shadow-card sticky top-0 z-50">
+      <header className="bg-card border-b border-border shadow-card sticky top-0 z-50">
         <div className="px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                   <span className="text-primary-foreground font-bold text-sm">OW</span>
                 </div>
                 <div>
@@ -45,7 +45,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                 Export
               </Button>
               
-              <Button size="sm" className="bg-gradient-primary hover:opacity-90">
+              <Button size="sm" className="bg-primary hover:bg-primary/90">
                 <Plus className="h-4 w-4 mr-2" />
                 New Entry
               </Button>
