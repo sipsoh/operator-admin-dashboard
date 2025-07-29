@@ -1,13 +1,33 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { DashboardLayout } from "@/components/DashboardLayout";
+import { DashboardStats } from "@/components/DashboardStats";
+import { SubmissionTable } from "@/components/SubmissionTable";
+import { FilterPanel } from "@/components/FilterPanel";
+import { RecentActivity } from "@/components/RecentActivity";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <DashboardLayout>
+      <div className="space-y-8">
+        {/* Dashboard Statistics */}
+        <DashboardStats />
+
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Filters Panel */}
+          <div className="lg:col-span-1">
+            <div className="space-y-6">
+              <FilterPanel />
+              <RecentActivity />
+            </div>
+          </div>
+
+          {/* Main Table */}
+          <div className="lg:col-span-3">
+            <SubmissionTable />
+          </div>
+        </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 
