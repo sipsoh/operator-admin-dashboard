@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { StatusBadge, Status } from "./StatusBadge";
-import { MoreHorizontal, Eye, Edit, MessageSquare, Calendar, Building, User } from "lucide-react";
+import { MoreHorizontal, Eye, Edit, MessageSquare, Calendar, Building, User, ChevronDown, ChevronRight } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ViewDetailsDialog } from "./ViewDetailsDialog";
 import { EditStatusDialog } from "./EditStatusDialog";
@@ -329,6 +329,24 @@ export const SubmissionTable = ({
     return groups;
   }, {} as Record<string, Submission[]>);
 
+  // Initialize expanded operators state (all expanded by default)
+  const [expandedOperators, setExpandedOperators] = useState<Set<string>>(
+    new Set(Object.keys(groupedData))
+  );
+
+  // Toggle expand/collapse for an operator
+  const toggleOperator = (operator: string) => {
+    setExpandedOperators(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(operator)) {
+        newSet.delete(operator);
+      } else {
+        newSet.add(operator);
+      }
+      return newSet;
+    });
+  };
+
   // Dialog handlers
   const handleViewDetails = (submission: Submission) => {
     setSelectedSubmission(submission);
@@ -410,101 +428,117 @@ export const SubmissionTable = ({
               {Object.entries(groupedData).map(([operator, submissions]) => (
                 <>
                   {/* Operator Header Row */}
-                  <TableRow key={`header-${operator}`} className="bg-muted/50 border-b-2 border-border">
+                  <TableRow 
+                    key={`header-${operator}`} 
+                    className="bg-muted/50 border-b-2 border-border cursor-pointer hover:bg-muted/70 transition-colors"
+                    onClick={() => toggleOperator(operator)}
+                  >
                     <TableCell colSpan={15} className="py-3 px-4">
-                      <div className="font-bold text-foreground text-sm uppercase tracking-wide">
-                        {operator}
+                      <div className="flex items-center space-x-2">
+                        {expandedOperators.has(operator) ? (
+                          <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform" />
+                        ) : (
+                          <ChevronRight className="h-4 w-4 text-muted-foreground transition-transform" />
+                        )}
+                        <div className="font-bold text-foreground text-sm uppercase tracking-wide">
+                          {operator}
+                        </div>
+                        <div className="text-xs text-muted-foreground ml-2">
+                          ({submissions.length} {submissions.length === 1 ? 'item' : 'items'})
+                        </div>
                       </div>
                     </TableCell>
                   </TableRow>
                   
-                  {/* Operator Submissions */}
-                  {submissions.map((submission, index) => (
-                    <TableRow 
-                      key={submission.id} 
-                      className="hover:bg-muted/30 transition-smooth cursor-pointer"
-                    >
-                      <TableCell>
-                        <div className="font-medium text-foreground">{submission.operator}</div>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-sm">{submission.category}</span>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-sm font-medium text-primary">
-                          {submission.reportType}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-sm">{submission.reportParty}</span>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-sm">{submission.frequency}</span>
-                      </TableCell>
-                      <TableCell>
-                        <div className="text-sm">
-                          {submission.dueDate}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-sm">{submission.period}</span>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-sm">{submission.leaseName}</span>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-sm">{submission.properties}</span>
-                      </TableCell>
-                      <TableCell>
-                        {submission.receivedDate ? (
+                  {/* Operator Submissions - Only show when expanded */}
+                  {expandedOperators.has(operator) && 
+                    submissions.map((submission, index) => (
+                      <TableRow 
+                        key={submission.id} 
+                        className="hover:bg-muted/30 transition-smooth cursor-pointer animate-fade-in"
+                      >
+                        <TableCell>
+                          <div className="font-medium text-foreground">{submission.operator}</div>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{submission.category}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm font-medium text-primary">
+                            {submission.reportType}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{submission.reportParty}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{submission.frequency}</span>
+                        </TableCell>
+                        <TableCell>
                           <div className="text-sm">
-                            {submission.receivedDate}
+                            {submission.dueDate}
                           </div>
-                        ) : (
-                          <span className="text-sm text-muted-foreground">-</span>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        <StatusBadge status={submission.status} />
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-sm">{submission.reviewerApprover}</span>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-sm font-medium text-center">
-                          {submission.daysUnderStatus}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <div className="text-sm max-w-40 truncate">
-                          {submission.comments || "-"}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="sm">
-                              <MoreHorizontal className="h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                           <DropdownMenuContent align="end">
-                             <DropdownMenuItem onClick={() => handleViewDetails(submission)}>
-                               <Eye className="h-4 w-4 mr-2" />
-                               View Details
-                             </DropdownMenuItem>
-                             <DropdownMenuItem onClick={() => handleEditStatus(submission)}>
-                               <Edit className="h-4 w-4 mr-2" />
-                               Edit Status
-                             </DropdownMenuItem>
-                             <DropdownMenuItem onClick={() => handleAddComment(submission)}>
-                               <MessageSquare className="h-4 w-4 mr-2" />
-                               Add Comment
-                             </DropdownMenuItem>
-                           </DropdownMenuContent>
-                         </DropdownMenu>
-                       </TableCell>
-                     </TableRow>
-                   ))}
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{submission.period}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{submission.leaseName}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{submission.properties}</span>
+                        </TableCell>
+                        <TableCell>
+                          {submission.receivedDate ? (
+                            <div className="text-sm">
+                              {submission.receivedDate}
+                            </div>
+                          ) : (
+                            <span className="text-sm text-muted-foreground">-</span>
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          <StatusBadge status={submission.status} />
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{submission.reviewerApprover}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm font-medium text-center">
+                            {submission.daysUnderStatus}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <div className="text-sm max-w-40 truncate">
+                            {submission.comments || "-"}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="sm">
+                                <MoreHorizontal className="h-4 w-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                             <DropdownMenuContent align="end">
+                               <DropdownMenuItem onClick={() => handleViewDetails(submission)}>
+                                 <Eye className="h-4 w-4 mr-2" />
+                                 View Details
+                               </DropdownMenuItem>
+                               <DropdownMenuItem onClick={() => handleEditStatus(submission)}>
+                                 <Edit className="h-4 w-4 mr-2" />
+                                 Edit Status
+                               </DropdownMenuItem>
+                               <DropdownMenuItem onClick={() => handleAddComment(submission)}>
+                                 <MessageSquare className="h-4 w-4 mr-2" />
+                                 Add Comment
+                               </DropdownMenuItem>
+                             </DropdownMenuContent>
+                           </DropdownMenu>
+                         </TableCell>
+                       </TableRow>
+                     ))
+                   }
                  </>
                ))}
              </TableBody>
