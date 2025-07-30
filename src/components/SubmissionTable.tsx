@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
@@ -466,7 +466,7 @@ export const SubmissionTable = ({
             </TableHeader>
             <TableBody>
               {Object.entries(groupedData).map(([operator, submissions]) => (
-                <>
+                <React.Fragment key={operator}>
                   {/* Operator Header Row */}
                   <TableRow 
                     key={`header-${operator}`} 
@@ -579,7 +579,7 @@ export const SubmissionTable = ({
                       </TableRow>
                     ))
                   }
-                </>
+                </React.Fragment>
               ))}
             </TableBody>
           </Table>
