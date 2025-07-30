@@ -9,16 +9,20 @@ interface DashboardLayoutProps {
   children: React.ReactNode;
   reportType: string;
   dateRange: string;
+  searchQuery?: string;
   onReportTypeChange: (value: string) => void;
   onDateRangeChange: (value: string) => void;
+  onSearchChange?: (query: string) => void;
 }
 
 export const DashboardLayout = ({ 
   children, 
   reportType, 
-  dateRange, 
+  dateRange,
+  searchQuery = "",
   onReportTypeChange, 
-  onDateRangeChange 
+  onDateRangeChange,
+  onSearchChange 
 }: DashboardLayoutProps) => {
   const reportTypes = [
     { value: "all", label: "All Report Types" },
@@ -63,6 +67,8 @@ export const DashboardLayout = ({
                 <Input 
                   placeholder="Search submissions, operators..."
                   className="pl-10 w-80 bg-muted/50"
+                  value={searchQuery}
+                  onChange={(e) => onSearchChange?.(e.target.value)}
                 />
               </div>
               

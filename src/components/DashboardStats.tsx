@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { mockData, calculateStats } from "@/lib/data";
 
 interface StatCardProps {
   title: string;
@@ -41,63 +42,68 @@ const StatCard = ({ title, value, color, isActive, onClick, filterType }: StatCa
 interface DashboardStatsProps {
   activeFilter: string;
   onFilterChange: (filter: string) => void;
+  searchQuery?: string;
+  reportTypeFilter?: string;
+  dateRangeFilter?: string;
 }
 
-export const DashboardStats = ({ activeFilter, onFilterChange }: DashboardStatsProps) => {
-  const stats = [
+export const DashboardStats = ({ 
+  activeFilter, 
+  onFilterChange, 
+  searchQuery = "",
+  reportTypeFilter = "all",
+  dateRangeFilter = "all"
+}: DashboardStatsProps) => {
+  const stats = calculateStats(mockData, { searchQuery, reportTypeFilter, dateRangeFilter });
+  
+  const statCards = [
     {
       title: "Total Submissions",
-      value: "156",
+      value: stats.total,
       color: "primary" as const,
       filterType: "all"
     },
     {
-      title: "Open",
-      value: "23",
-      color: "primary" as const,
-      filterType: "open"
-    },
-    {
-      title: "Under Review",
-      value: "34",
-      color: "warning" as const,
-      filterType: "under-review"
-    },
-    {
-      title: "Pending Approval",
-      value: "12",
-      color: "warning" as const,
-      filterType: "pending-approval"
-    },
-    {
       title: "Approved",
-      value: "89",
+      value: stats.approved,
       color: "success" as const,
       filterType: "approved"
     },
     {
-      title: "Compliant",
-      value: "67",
-      color: "success" as const,
-      filterType: "compliant"
+      title: "Pending",
+      value: stats.pending,
+      color: "warning" as const,
+      filterType: "pending"
+    },
+    {
+      title: "In Review",
+      value: stats.inReview,
+      color: "warning" as const,
+      filterType: "in-review"
+    },
+    {
+      title: "Submitted",
+      value: stats.submitted,
+      color: "primary" as const,
+      filterType: "submitted"
     },
     {
       title: "Non-Compliant",
-      value: "18",
+      value: stats.nonCompliant,
       color: "danger" as const,
       filterType: "non-compliant"
     },
     {
-      title: "Rejected",
-      value: "8",
+      title: "Overdue",
+      value: stats.overdue,
       color: "danger" as const,
-      filterType: "rejected"
+      filterType: "overdue"
     }
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-6 mb-8">
-      {stats.map((stat) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-6 mb-8">
+      {statCards.map((stat) => (
         <StatCard
           key={stat.filterType}
           title={stat.title}
