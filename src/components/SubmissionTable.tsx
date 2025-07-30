@@ -241,9 +241,9 @@ export const SubmissionTable = ({
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Badge variant="outline" className="bg-primary/5 text-primary border-primary/20">
+                    <span className="text-sm font-medium text-primary">
                       {submission.reportType}
-                    </Badge>
+                    </span>
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center space-x-2">
@@ -281,12 +281,12 @@ export const SubmissionTable = ({
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Badge 
-                      variant="secondary" 
-                      className={`text-xs font-medium ${priorityColors[submission.priority]}`}
-                    >
+                    <span className={`text-xs font-medium ${
+                      submission.priority === 'high' ? 'text-danger' :
+                      submission.priority === 'medium' ? 'text-warning' : 'text-success'
+                    }`}>
                       {submission.priority.toUpperCase()}
-                    </Badge>
+                    </span>
                   </TableCell>
                   <TableCell>
                     <DropdownMenu>

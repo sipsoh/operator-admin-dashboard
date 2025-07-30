@@ -77,22 +77,22 @@ export const ViewDetailsDialog = ({ submission, open, onOpenChange }: ViewDetail
             <div className="space-y-4">
               <div>
                 <h3 className="font-semibold text-foreground mb-2">Status & Priority</h3>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-4">
                   <StatusBadge status={submission.status} />
-                  <Badge 
-                    variant="outline" 
-                    className={`text-xs font-medium ${priorityColors[submission.priority]}`}
-                  >
+                  <span className={`text-xs font-medium ${
+                    submission.priority === 'high' ? 'text-danger' :
+                    submission.priority === 'medium' ? 'text-warning' : 'text-success'
+                  }`}>
                     {submission.priority.toUpperCase()} PRIORITY
-                  </Badge>
+                  </span>
                 </div>
               </div>
               
               <div>
                 <h3 className="font-semibold text-foreground mb-2">Report Type</h3>
-                <Badge variant="outline" className="bg-primary/5 text-primary border-primary/20">
+                <span className="text-sm font-medium text-primary">
                   {submission.reportType}
-                </Badge>
+                </span>
               </div>
             </div>
           </div>
