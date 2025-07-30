@@ -75,15 +75,6 @@ export const DashboardLayout = ({
                 New Entry
               </Button>
               
-              <div className="flex items-center space-x-2">
-                <Button variant="ghost" size="sm">
-                  <Bell className="h-4 w-4" />
-                  <Badge variant="destructive" className="ml-1 px-1 py-0 text-xs h-4">3</Badge>
-                </Button>
-                <Button variant="ghost" size="sm">
-                  <Settings className="h-4 w-4" />
-                </Button>
-              </div>
             </div>
           </div>
         </div>
