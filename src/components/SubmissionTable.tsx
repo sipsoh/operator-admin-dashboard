@@ -440,23 +440,6 @@ export const SubmissionTable = ({
 
   return (
     <Card className="shadow-card">
-      <CardHeader className="border-b border-border">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <Building className="h-5 w-5 mr-2 text-primary" />
-            Operator Submissions Tracking
-          </CardTitle>
-          <div className="flex items-center space-x-2">
-            <Badge variant="outline" className="text-xs">
-              {filteredData.length} Total Entries
-            </Badge>
-            <Button variant="outline" size="sm">
-              <Calendar className="h-4 w-4 mr-2" />
-              This Month
-            </Button>
-          </div>
-        </div>
-      </CardHeader>
       <CardContent className="p-0">
         <div className="overflow-x-auto">
           <Table>
