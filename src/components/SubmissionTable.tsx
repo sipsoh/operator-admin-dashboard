@@ -477,6 +477,30 @@ export const SubmissionTable = ({
                     {getSortIcon('comments')}
                   </div>
                 </TableHead>
+                <TableHead className="font-semibold min-w-[140px] pt-6">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('assetManager')}>
+                    Asset Manager
+                    {getSortIcon('assetManager')}
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[140px] pt-6">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('invManager')}>
+                    INV Manager
+                    {getSortIcon('invManager')}
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[140px] pt-6">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('leaseAdmin')}>
+                    Lease Admin
+                    {getSortIcon('leaseAdmin')}
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[140px] pt-6">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('invAssociate')}>
+                    INV Associate
+                    {getSortIcon('invAssociate')}
+                  </div>
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -488,7 +512,7 @@ export const SubmissionTable = ({
                     className="bg-muted/50 border-b-2 border-border cursor-pointer hover:bg-muted/70 transition-colors"
                     onClick={() => toggleOperator(operator)}
                   >
-                    <TableCell colSpan={15} className="py-3 px-4">
+                    <TableCell colSpan={19} className="py-3 px-4">
                       <div className="flex items-center space-x-2">
                         {expandedOperators.has(operator) ? (
                           <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform" />
@@ -586,12 +610,24 @@ export const SubmissionTable = ({
                          <TableCell>
                            <span className="text-sm">{submission.properties}</span>
                          </TableCell>
-                         <TableCell>
-                           <div className="text-sm max-w-40 truncate">
-                             {submission.comments || "-"}
-                           </div>
-                         </TableCell>
-                      </TableRow>
+                          <TableCell>
+                            <div className="text-sm max-w-40 truncate">
+                              {submission.comments || "-"}
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <span className="text-sm">{submission.assetManager}</span>
+                          </TableCell>
+                          <TableCell>
+                            <span className="text-sm">{submission.invManager}</span>
+                          </TableCell>
+                          <TableCell>
+                            <span className="text-sm">{submission.leaseAdmin}</span>
+                          </TableCell>
+                          <TableCell>
+                            <span className="text-sm">{submission.invAssociate}</span>
+                          </TableCell>
+                       </TableRow>
                     ))
                   }
                 </React.Fragment>

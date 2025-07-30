@@ -16,6 +16,10 @@ export interface Submission {
   reviewerApprover: string;
   daysUnderStatus: number;
   comments?: string;
+  assetManager: string;
+  invManager: string;
+  leaseAdmin: string;
+  invAssociate: string;
 }
 
 export const mockData: Submission[] = [
@@ -35,7 +39,11 @@ export const mockData: Submission[] = [
     status: "approved",
     reviewerApprover: "Melissa",
     daysUnderStatus: 0,
-    comments: ""
+    comments: "",
+    assetManager: "Melissa",
+    invManager: "Lauren",
+    leaseAdmin: "Yvonne",
+    invAssociate: "Larson Pfeil"
   },
   {
     id: "SUB-002",
@@ -52,7 +60,11 @@ export const mockData: Submission[] = [
     status: "approved",
     reviewerApprover: "Melissa",
     daysUnderStatus: 0,
-    comments: ""
+    comments: "",
+    assetManager: "Melissa",
+    invManager: "Lauren",
+    leaseAdmin: "Yvonne",
+    invAssociate: "Larson Pfeil"
   },
   {
     id: "SUB-003",
@@ -69,7 +81,11 @@ export const mockData: Submission[] = [
     status: "approved",
     reviewerApprover: "Melissa",
     daysUnderStatus: 25,
-    comments: ""
+    comments: "",
+    assetManager: "Melissa",
+    invManager: "Lauren",
+    leaseAdmin: "Yvonne",
+    invAssociate: "Larson Pfeil"
   },
   {
     id: "SUB-004",
@@ -86,7 +102,11 @@ export const mockData: Submission[] = [
     status: "pending",
     reviewerApprover: "Melissa",
     daysUnderStatus: 242,
-    comments: ""
+    comments: "",
+    assetManager: "Melissa",
+    invManager: "Barr",
+    leaseAdmin: "Yvonne",
+    invAssociate: "Larson Pfeil"
   },
   {
     id: "SUB-005",
@@ -103,7 +123,11 @@ export const mockData: Submission[] = [
     status: "in-review",
     reviewerApprover: "Yvonne",
     daysUnderStatus: 610,
-    comments: ""
+    comments: "",
+    assetManager: "Melissa",
+    invManager: "Lauren",
+    leaseAdmin: "Yvonne",
+    invAssociate: "Larson Pfeil"
   },
   {
     id: "SUB-006",
@@ -120,7 +144,11 @@ export const mockData: Submission[] = [
     status: "in-review",
     reviewerApprover: "Yvonne",
     daysUnderStatus: 410,
-    comments: ""
+    comments: "",
+    assetManager: "Melissa",
+    invManager: "Lauren",
+    leaseAdmin: "Yvonne",
+    invAssociate: "Larson Pfeil"
   },
   // AGEWELL SOLVERE
   {
@@ -138,7 +166,11 @@ export const mockData: Submission[] = [
     status: "approved",
     reviewerApprover: "Christine",
     daysUnderStatus: 0,
-    comments: ""
+    comments: "",
+    assetManager: "Melissa",
+    invManager: "Lauren",
+    leaseAdmin: "Christine",
+    invAssociate: "Ifrana Tursun"
   },
   {
     id: "SUB-008",
@@ -155,7 +187,11 @@ export const mockData: Submission[] = [
     status: "approved",
     reviewerApprover: "Christine",
     daysUnderStatus: 0,
-    comments: ""
+    comments: "",
+    assetManager: "Melissa",
+    invManager: "Barr",
+    leaseAdmin: "Christine",
+    invAssociate: "Ifrana Tursun"
   },
   // ANDREW RESIDENCE
   {
@@ -173,7 +209,11 @@ export const mockData: Submission[] = [
     status: "approved",
     reviewerApprover: "Debby",
     daysUnderStatus: 0,
-    comments: ""
+    comments: "",
+    assetManager: "Debby",
+    invManager: "Eliza",
+    leaseAdmin: "Christine",
+    invAssociate: "Tony Chen"
   },
   {
     id: "SUB-010",
@@ -190,7 +230,11 @@ export const mockData: Submission[] = [
     status: "pending",
     reviewerApprover: "Debby",
     daysUnderStatus: 972,
-    comments: "7/20/2023: Not approved - outstanding questions related to the"
+    comments: "7/20/2023: Not approved - outstanding questions related to the",
+    assetManager: "Debby",
+    invManager: "Eliza",
+    leaseAdmin: "Christine",
+    invAssociate: "Tony Chen"
   },
   {
     id: "SUB-011",
@@ -207,7 +251,11 @@ export const mockData: Submission[] = [
     status: "approved",
     reviewerApprover: "Kara",
     daysUnderStatus: 0,
-    comments: ""
+    comments: "",
+    assetManager: "Debby",
+    invManager: "Eliza",
+    leaseAdmin: "Christine",
+    invAssociate: "Tony Chen"
   },
   {
     id: "SUB-012",
@@ -224,7 +272,11 @@ export const mockData: Submission[] = [
     status: "approved",
     reviewerApprover: "Kara",
     daysUnderStatus: 0,
-    comments: ""
+    comments: "",
+    assetManager: "Debby",
+    invManager: "Eliza",
+    leaseAdmin: "Christine",
+    invAssociate: "Tony Chen"
   },
   {
     id: "SUB-013",
@@ -241,7 +293,11 @@ export const mockData: Submission[] = [
     status: "approved",
     reviewerApprover: "Kara",
     daysUnderStatus: 0,
-    comments: ""
+    comments: "",
+    assetManager: "Debby",
+    invManager: "Eliza",
+    leaseAdmin: "Christine",
+    invAssociate: "Tony Chen"
   },
   // AVAMERE FAMILY - Additional entries
   {
@@ -259,7 +315,11 @@ export const mockData: Submission[] = [
     status: "approved",
     reviewerApprover: "Kara",
     daysUnderStatus: 0,
-    comments: ""
+    comments: "",
+    assetManager: "Kara",
+    invManager: "Eliza",
+    leaseAdmin: "Christine",
+    invAssociate: "Larson Pfeil"
   },
   {
     id: "SUB-015",
@@ -276,7 +336,11 @@ export const mockData: Submission[] = [
     status: "approved",
     reviewerApprover: "Kara",
     daysUnderStatus: 0,
-    comments: ""
+    comments: "",
+    assetManager: "Kara",
+    invManager: "Eliza",
+    leaseAdmin: "Christine",
+    invAssociate: "Larson Pfeil"
   },
   {
     id: "SUB-016",
@@ -293,7 +357,11 @@ export const mockData: Submission[] = [
     status: "approved",
     reviewerApprover: "Kara",
     daysUnderStatus: 0,
-    comments: ""
+    comments: "",
+    assetManager: "Kara",
+    invManager: "Eliza",
+    leaseAdmin: "Christine",
+    invAssociate: "Larson Pfeil"
   },
   {
     id: "SUB-017",
@@ -310,7 +378,11 @@ export const mockData: Submission[] = [
     status: "approved",
     reviewerApprover: "Kara",
     daysUnderStatus: 0,
-    comments: ""
+    comments: "",
+    assetManager: "Kara",
+    invManager: "Eliza",
+    leaseAdmin: "Christine",
+    invAssociate: "Larson Pfeil"
   },
   {
     id: "SUB-018",
@@ -327,7 +399,11 @@ export const mockData: Submission[] = [
     status: "approved",
     reviewerApprover: "Kara",
     daysUnderStatus: 0,
-    comments: ""
+    comments: "",
+    assetManager: "Kara",
+    invManager: "Eliza",
+    leaseAdmin: "Christine",
+    invAssociate: "Larson Pfeil"
   },
   {
     id: "SUB-019",
@@ -344,7 +420,11 @@ export const mockData: Submission[] = [
     status: "submitted",
     reviewerApprover: "Kara",
     daysUnderStatus: 0,
-    comments: ""
+    comments: "",
+    assetManager: "Kara",
+    invManager: "Eliza",
+    leaseAdmin: "Christine",
+    invAssociate: "Larson Pfeil"
   },
   {
     id: "SUB-020",
@@ -361,7 +441,11 @@ export const mockData: Submission[] = [
     status: "submitted",
     reviewerApprover: "Eliza",
     daysUnderStatus: 0,
-    comments: ""
+    comments: "",
+    assetManager: "Kara",
+    invManager: "Eliza",
+    leaseAdmin: "Christine",
+    invAssociate: "Larson Pfeil"
   }
 ];
 
