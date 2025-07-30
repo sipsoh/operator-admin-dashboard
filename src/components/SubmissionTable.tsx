@@ -49,7 +49,6 @@ export const SubmissionTable = ({
     operator: "all",
     category: "all",
     reportType: "all", 
-    reportParty: "all",
     frequency: "all",
     period: "all",
     leaseName: "all",
@@ -82,7 +81,6 @@ export const SubmissionTable = ({
       operator: "all",
       category: "all",
       reportType: "all", 
-      reportParty: "all",
       frequency: "all",
       period: "all",
       leaseName: "all",
@@ -135,7 +133,7 @@ export const SubmissionTable = ({
     if (columnFilters.operator !== "all" && submission.operator !== columnFilters.operator) return false;
     if (columnFilters.category !== "all" && submission.category !== columnFilters.category) return false;
     if (columnFilters.reportType !== "all" && submission.reportType !== columnFilters.reportType) return false;
-    if (columnFilters.reportParty !== "all" && submission.reportParty !== columnFilters.reportParty) return false;
+    
     if (columnFilters.frequency !== "all" && submission.frequency !== columnFilters.frequency) return false;
     if (columnFilters.period !== "all" && submission.period !== columnFilters.period) return false;
     if (columnFilters.leaseName !== "all" && submission.leaseName !== columnFilters.leaseName) return false;
@@ -299,25 +297,6 @@ export const SubmissionTable = ({
                       <SelectContent>
                         <SelectItem value="all">All</SelectItem>
                         {getUniqueValues("reportType").map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </TableHead>
-                <TableHead className="font-semibold min-w-[120px] pt-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('reportParty')}>
-                      Report Party
-                      {getSortIcon('reportParty')}
-                    </div>
-                    <Select value={columnFilters.reportParty} onValueChange={(value) => updateColumnFilter("reportParty", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("reportParty").map(value => (
                           <SelectItem key={value} value={value}>{value}</SelectItem>
                         ))}
                       </SelectContent>
@@ -531,9 +510,6 @@ export const SubmissionTable = ({
                              {submission.reportType}
                            </span>
                          </TableCell>
-                        <TableCell>
-                          <span className="text-sm">{submission.reportParty}</span>
-                        </TableCell>
                         <TableCell>
                           <span className="text-sm">{submission.frequency}</span>
                         </TableCell>
