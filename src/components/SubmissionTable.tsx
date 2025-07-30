@@ -14,82 +14,246 @@ import { useToast } from "@/hooks/use-toast";
 interface Submission {
   id: string;
   operator: string;
-  entity: string;
+  category: string;
   reportType: string;
-  status: Status;
+  reportParty: string;
+  frequency: string;
   dueDate: string;
-  submittedDate?: string;
-  reviewer: string;
-  priority: "high" | "medium" | "low";
-  notes?: string;
+  period: string;
+  leaseName: string;
+  properties: string;
+  receivedDate?: string;
+  status: Status;
+  reviewerApprover: string;
+  daysUnderStatus: number;
+  comments?: string;
 }
 
 const mockData: Submission[] = [
+  // ADVANCED RECOVERY SYSTEMS
   {
     id: "SUB-001",
-    operator: "Metro Properties LLC",
-    entity: "Building A Complex",
-    reportType: "Monthly Financial",
+    operator: "ADVANCED RECOVERY SYSTEMS",
+    category: "Budgets",
+    reportType: "Operating & Capital Budgets",
+    reportParty: "Tenant",
+    frequency: "Annual Budget",
+    dueDate: "12/01/2024",
+    period: "2025",
+    leaseName: "L_ARS",
+    properties: "All",
+    receivedDate: "12/01/2024",
     status: "approved",
-    dueDate: "2024-01-15",
-    submittedDate: "2024-01-12",
-    reviewer: "Sarah Johnson",
-    priority: "high"
+    reviewerApprover: "Melissa",
+    daysUnderStatus: 0,
+    comments: ""
   },
   {
     id: "SUB-002",
-    operator: "Eastside Management",
-    entity: "Retail Plaza East",
-    reportType: "Rent Schedule",
-    status: "pending",
-    dueDate: "2024-01-20",
-    submittedDate: "2024-01-18",
-    reviewer: "Mike Chen",
-    priority: "medium"
+    operator: "ADVANCED RECOVERY SYSTEMS",
+    category: "Budgets",
+    reportType: "Operating & Capital Budgets",
+    reportParty: "Tenant",
+    frequency: "Annual Budget",
+    dueDate: "12/01/2024",
+    period: "2025",
+    leaseName: "L_ARS",
+    properties: "All",
+    receivedDate: "12/01/2024",
+    status: "approved",
+    reviewerApprover: "Melissa",
+    daysUnderStatus: 0,
+    comments: ""
   },
   {
     id: "SUB-003",
-    operator: "Harbor Point Group",
-    entity: "Waterfront Tower",
-    reportType: "Lease Agreement",
-    status: "non-compliant",
-    dueDate: "2024-01-10",
-    submittedDate: "2024-01-15",
-    reviewer: "Lisa Wong",
-    priority: "high",
-    notes: "Missing required signatures"
+    operator: "ADVANCED RECOVERY SYSTEMS",
+    category: "Financial Reports & Calculations",
+    reportType: "Annual & Qtrly Financials",
+    reportParty: "Tenant",
+    frequency: "Annual",
+    dueDate: "05/30/2024",
+    period: "2024",
+    leaseName: "L_ARS",
+    properties: "All",
+    receivedDate: "5/29/2025",
+    status: "approved",
+    reviewerApprover: "Melissa",
+    daysUnderStatus: 25,
+    comments: ""
   },
   {
     id: "SUB-004",
-    operator: "Northgate Associates",
-    entity: "Office Complex North",
-    reportType: "Quarterly Review",
-    status: "overdue",
-    dueDate: "2024-01-05",
-    reviewer: "David Park",
-    priority: "high"
+    operator: "ADVANCED RECOVERY SYSTEMS",
+    category: "Operational Reports",
+    reportType: "Capital Expenditures Report",
+    reportParty: "Tenant",
+    frequency: "Annual",
+    dueDate: "11/30/2024",
+    period: "2023/2024",
+    leaseName: "L_ARS",
+    properties: "All",
+    receivedDate: "11/30/2024",
+    status: "pending",
+    reviewerApprover: "Melissa",
+    daysUnderStatus: 242,
+    comments: ""
   },
   {
     id: "SUB-005",
-    operator: "Sunset Commercial",
-    entity: "Shopping Center West",
-    reportType: "Monthly Financial",
+    operator: "ADVANCED RECOVERY SYSTEMS",
+    category: "Operational Reports",
+    reportType: "Operating Licenses",
+    reportParty: "Tenant",
+    frequency: "Annual",
+    dueDate: "6/15/24",
+    period: "2024",
+    leaseName: "L_ARS",
+    properties: "All",
+    receivedDate: "6/15/24",
     status: "in-review",
-    dueDate: "2024-01-25",
-    submittedDate: "2024-01-23",
-    reviewer: "Anna Rodriguez",
-    priority: "low"
+    reviewerApprover: "Yvonne",
+    daysUnderStatus: 610,
+    comments: ""
   },
   {
     id: "SUB-006",
-    operator: "Central Business Park",
-    entity: "Corporate Campus",
-    reportType: "Insurance Documents",
-    status: "submitted",
-    dueDate: "2024-01-30",
-    submittedDate: "2024-01-28",
-    reviewer: "Tom Wilson",
-    priority: "medium"
+    operator: "ADVANCED RECOVERY SYSTEMS",
+    category: "Operational Reports",
+    reportType: "Operating Licenses",
+    reportParty: "Tenant",
+    frequency: "Annual",
+    dueDate: "6/15/24",
+    period: "2024/2025",
+    leaseName: "L_ARS",
+    properties: "All",
+    receivedDate: "6/15/24",
+    status: "in-review",
+    reviewerApprover: "Yvonne",
+    daysUnderStatus: 410,
+    comments: ""
+  },
+  // AGEWELL SOLVERE
+  {
+    id: "SUB-007",
+    operator: "AGEWELL SOLVERE",
+    category: "Operational Reports",
+    reportType: "Operating Licenses",
+    reportParty: "Tenant",
+    frequency: "Annual",
+    dueDate: "12/31/2024",
+    period: "2023",
+    leaseName: "L_Solvere_Lease_L_Solvere_Mgd",
+    properties: "Monarch at Henderson",
+    receivedDate: "12/31/24",
+    status: "approved",
+    reviewerApprover: "Christine",
+    daysUnderStatus: 0,
+    comments: ""
+  },
+  {
+    id: "SUB-008",
+    operator: "AGEWELL SOLVERE",
+    category: "Operational Reports",
+    reportType: "Operating Licenses",
+    reportParty: "Tenant",
+    frequency: "Annual",
+    dueDate: "09/03/2024",
+    period: "2023",
+    leaseName: "L_Solvere_Mgd",
+    properties: "Monarch at Cedar Park",
+    receivedDate: "9/5/24",
+    status: "approved",
+    reviewerApprover: "Christine",
+    daysUnderStatus: 0,
+    comments: ""
+  },
+  // ANDREW RESIDENCE
+  {
+    id: "SUB-009",
+    operator: "ANDREW RESIDENCE",
+    category: "Budgets",
+    reportType: "Operating & Capital Budgets",
+    reportParty: "Tenant",
+    frequency: "Annual Budget",
+    dueDate: "12/02/2024",
+    period: "2025",
+    leaseName: "L_AndrewRes_LS0311",
+    properties: "All",
+    receivedDate: "12/1/24",
+    status: "approved",
+    reviewerApprover: "Debby",
+    daysUnderStatus: 0,
+    comments: ""
+  },
+  {
+    id: "SUB-010",
+    operator: "ANDREW RESIDENCE",
+    category: "Budgets",
+    reportType: "Operating & Capital Budgets",
+    reportParty: "Tenant",
+    frequency: "Annual Budget",
+    dueDate: "12/02/2022",
+    period: "2023",
+    leaseName: "L_AndrewRes_LS0311",
+    properties: "All",
+    receivedDate: "12/1/22",
+    status: "pending",
+    reviewerApprover: "Debby",
+    daysUnderStatus: 972,
+    comments: "7/20/2023: Not approved - outstanding questions related to the"
+  },
+  // AVAMERE FAMILY
+  {
+    id: "SUB-011",
+    operator: "AVAMERE FAMILY",
+    category: "Budgets",
+    reportType: "Operating & Capital Budgets",
+    reportParty: "Tenant",
+    frequency: "Annual Budget",
+    dueDate: "12/17/2022",
+    period: "2023",
+    leaseName: "L_Avamere_LS0316",
+    properties: "All",
+    receivedDate: "12/17/2022",
+    status: "approved",
+    reviewerApprover: "Kara",
+    daysUnderStatus: 0,
+    comments: ""
+  },
+  {
+    id: "SUB-012",
+    operator: "AVAMERE FAMILY",
+    category: "Budgets",
+    reportType: "Operating & Capital Budgets",
+    reportParty: "Tenant",
+    frequency: "Annual Budget",
+    dueDate: "12/17/2023",
+    period: "2024",
+    leaseName: "L_Avamere_LS0316",
+    properties: "All",
+    receivedDate: "12/17/2023",
+    status: "approved",
+    reviewerApprover: "Kara",
+    daysUnderStatus: 0,
+    comments: ""
+  },
+  {
+    id: "SUB-013",
+    operator: "AVAMERE FAMILY",
+    category: "Financial Covenant",
+    reportType: "Financial Covenant Lease",
+    reportParty: "Tenant",
+    frequency: "Annual",
+    dueDate: "04/30/2021",
+    period: "2020",
+    leaseName: "L_Avamere_LS0316",
+    properties: "All",
+    receivedDate: "04/30/2021",
+    status: "approved",
+    reviewerApprover: "Eliza",
+    daysUnderStatus: 0,
+    comments: ""
   }
 ];
 
@@ -175,7 +339,7 @@ export const SubmissionTable = ({
     setSubmissions(prev => 
       prev.map(sub => 
         sub.id === submissionId 
-          ? { ...sub, status: newStatus, notes: sub.notes ? `${sub.notes}\n\nStatus changed to ${newStatus}: ${reason}` : `Status changed to ${newStatus}: ${reason}` }
+          ? { ...sub, status: newStatus, comments: sub.comments ? `${sub.comments}\n\nStatus changed to ${newStatus}: ${reason}` : `Status changed to ${newStatus}: ${reason}` }
           : sub
       )
     );
@@ -185,7 +349,7 @@ export const SubmissionTable = ({
     setSubmissions(prev => 
       prev.map(sub => 
         sub.id === submissionId 
-          ? { ...sub, notes: sub.notes ? `${sub.notes}\n\n[${commentType}] ${comment}` : `[${commentType}] ${comment}` }
+          ? { ...sub, comments: sub.comments ? `${sub.comments}\n\n[${commentType}] ${comment}` : `[${commentType}] ${comment}` }
           : sub
       )
     );
@@ -215,13 +379,20 @@ export const SubmissionTable = ({
           <Table>
             <TableHeader>
               <TableRow className="bg-muted/50">
-                <TableHead className="font-semibold">Operator / Entity</TableHead>
+                <TableHead className="font-semibold">Operator</TableHead>
+                <TableHead className="font-semibold">Category</TableHead>
                 <TableHead className="font-semibold">Report Type</TableHead>
-                <TableHead className="font-semibold">Status</TableHead>
+                <TableHead className="font-semibold">Report Party</TableHead>
+                <TableHead className="font-semibold">Frequency</TableHead>
                 <TableHead className="font-semibold">Due Date</TableHead>
-                <TableHead className="font-semibold">Submitted</TableHead>
-                <TableHead className="font-semibold">Reviewer</TableHead>
-                <TableHead className="font-semibold">Priority</TableHead>
+                <TableHead className="font-semibold">Period</TableHead>
+                <TableHead className="font-semibold">Lease Name</TableHead>
+                <TableHead className="font-semibold">Properties</TableHead>
+                <TableHead className="font-semibold">Received Date</TableHead>
+                <TableHead className="font-semibold">Status</TableHead>
+                <TableHead className="font-semibold">Reviewer/Approver</TableHead>
+                <TableHead className="font-semibold"># of Days under Status</TableHead>
+                <TableHead className="font-semibold">Comments</TableHead>
                 <TableHead className="w-12"></TableHead>
               </TableRow>
             </TableHeader>
@@ -232,13 +403,10 @@ export const SubmissionTable = ({
                   className="hover:bg-muted/30 transition-smooth cursor-pointer"
                 >
                   <TableCell>
-                    <div className="space-y-1">
-                      <div className="font-medium text-foreground">{submission.operator}</div>
-                      <div className="text-sm text-muted-foreground flex items-center">
-                        <Building className="h-3 w-3 mr-1" />
-                        {submission.entity}
-                      </div>
-                    </div>
+                    <div className="font-medium text-foreground">{submission.operator}</div>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{submission.category}</span>
                   </TableCell>
                   <TableCell>
                     <span className="text-sm font-medium text-primary">
@@ -246,47 +414,49 @@ export const SubmissionTable = ({
                     </span>
                   </TableCell>
                   <TableCell>
-                    <div className="flex items-center space-x-2">
-                      <StatusBadge status={submission.status} />
-                      {submission.status === "overdue" && (
-                        <span className="text-xs text-danger font-medium">
-                          {getDaysOverdue(submission.dueDate)}d overdue
-                        </span>
-                      )}
-                    </div>
+                    <span className="text-sm">{submission.reportParty}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{submission.frequency}</span>
                   </TableCell>
                   <TableCell>
                     <div className="text-sm">
-                      {formatDate(submission.dueDate)}
-                      {submission.status === "overdue" && (
-                        <div className="text-xs text-danger mt-1">
-                          Past due
-                        </div>
-                      )}
+                      {submission.dueDate}
                     </div>
                   </TableCell>
                   <TableCell>
-                    {submission.submittedDate ? (
+                    <span className="text-sm">{submission.period}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{submission.leaseName}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm">{submission.properties}</span>
+                  </TableCell>
+                  <TableCell>
+                    {submission.receivedDate ? (
                       <div className="text-sm">
-                        {formatDate(submission.submittedDate)}
+                        {submission.receivedDate}
                       </div>
                     ) : (
                       <span className="text-sm text-muted-foreground">-</span>
                     )}
                   </TableCell>
                   <TableCell>
-                    <div className="flex items-center space-x-2">
-                      <User className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm">{submission.reviewer}</span>
-                    </div>
+                    <StatusBadge status={submission.status} />
                   </TableCell>
                   <TableCell>
-                    <span className={`text-xs font-medium ${
-                      submission.priority === 'high' ? 'text-danger' :
-                      submission.priority === 'medium' ? 'text-warning' : 'text-success'
-                    }`}>
-                      {submission.priority.toUpperCase()}
+                    <span className="text-sm">{submission.reviewerApprover}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-sm font-medium text-center">
+                      {submission.daysUnderStatus}
                     </span>
+                  </TableCell>
+                  <TableCell>
+                    <div className="text-sm max-w-40 truncate">
+                      {submission.comments || "-"}
+                    </div>
                   </TableCell>
                   <TableCell>
                     <DropdownMenu>

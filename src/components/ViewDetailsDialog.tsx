@@ -8,14 +8,19 @@ import { Building, User, Calendar, FileText, Clock, MessageSquare } from "lucide
 interface Submission {
   id: string;
   operator: string;
-  entity: string;
+  category: string;
   reportType: string;
-  status: Status;
+  reportParty: string;
+  frequency: string;
   dueDate: string;
-  submittedDate?: string;
-  reviewer: string;
-  priority: "high" | "medium" | "low";
-  notes?: string;
+  period: string;
+  leaseName: string;
+  properties: string;
+  receivedDate?: string;
+  status: Status;
+  reviewerApprover: string;
+  daysUnderStatus: number;
+  comments?: string;
 }
 
 interface ViewDetailsDialogProps {
@@ -59,33 +64,35 @@ export const ViewDetailsDialog = ({ submission, open, onOpenChange }: ViewDetail
               <div>
                 <h3 className="font-semibold text-foreground mb-2 flex items-center">
                   <Building className="h-4 w-4 mr-2 text-primary" />
-                  Operator & Entity
+                  Operator & Properties
                 </h3>
                 <p className="text-sm text-foreground font-medium">{submission.operator}</p>
-                <p className="text-sm text-muted-foreground">{submission.entity}</p>
+                <p className="text-sm text-muted-foreground">{submission.properties}</p>
+              </div>
+              
+              <div>
+                <h3 className="font-semibold text-foreground mb-2">Category</h3>
+                <p className="text-sm text-foreground">{submission.category}</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-foreground mb-2">Report Party</h3>
+                <p className="text-sm text-foreground">{submission.reportParty}</p>
               </div>
               
               <div>
                 <h3 className="font-semibold text-foreground mb-2 flex items-center">
                   <User className="h-4 w-4 mr-2 text-primary" />
-                  Reviewer
+                  Reviewer/Approver
                 </h3>
-                <p className="text-sm text-foreground">{submission.reviewer}</p>
+                <p className="text-sm text-foreground">{submission.reviewerApprover}</p>
               </div>
             </div>
             
             <div className="space-y-4">
               <div>
-                <h3 className="font-semibold text-foreground mb-2">Status & Priority</h3>
-                <div className="flex items-center space-x-4">
-                  <StatusBadge status={submission.status} />
-                  <span className={`text-xs font-medium ${
-                    submission.priority === 'high' ? 'text-danger' :
-                    submission.priority === 'medium' ? 'text-warning' : 'text-success'
-                  }`}>
-                    {submission.priority.toUpperCase()} PRIORITY
-                  </span>
-                </div>
+                <h3 className="font-semibold text-foreground mb-2">Status</h3>
+                <StatusBadge status={submission.status} />
               </div>
               
               <div>
@@ -94,6 +101,29 @@ export const ViewDetailsDialog = ({ submission, open, onOpenChange }: ViewDetail
                   {submission.reportType}
                 </span>
               </div>
+
+              <div>
+                <h3 className="font-semibold text-foreground mb-2">Frequency</h3>
+                <p className="text-sm text-foreground">{submission.frequency}</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-foreground mb-2">Period</h3>
+                <p className="text-sm text-foreground">{submission.period}</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-foreground mb-2">Days under Status</h3>
+                <p className="text-sm text-foreground font-medium">{submission.daysUnderStatus}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Lease Information */}
+          <div>
+            <h3 className="font-semibold text-foreground mb-3">Lease Information</h3>
+            <div className="p-3 bg-muted/30 rounded-lg">
+              <p className="text-sm text-foreground font-medium">{submission.leaseName}</p>
             </div>
           </div>
           
@@ -109,30 +139,30 @@ export const ViewDetailsDialog = ({ submission, open, onOpenChange }: ViewDetail
                   <Clock className="h-4 w-4 text-muted-foreground" />
                   <span className="text-sm font-medium">Due Date</span>
                 </div>
-                <span className="text-sm text-foreground">{formatDate(submission.dueDate)}</span>
+                <span className="text-sm text-foreground">{submission.dueDate}</span>
               </div>
               
-              {submission.submittedDate && (
+              {submission.receivedDate && (
                 <div className="flex items-center justify-between p-3 bg-success/5 rounded-lg border border-success/20">
                   <div className="flex items-center space-x-3">
                     <FileText className="h-4 w-4 text-success" />
-                    <span className="text-sm font-medium">Submitted</span>
+                    <span className="text-sm font-medium">Received</span>
                   </div>
-                  <span className="text-sm text-foreground">{formatDate(submission.submittedDate)}</span>
+                  <span className="text-sm text-foreground">{submission.receivedDate}</span>
                 </div>
               )}
             </div>
           </div>
           
-          {/* Notes */}
-          {submission.notes && (
+          {/* Comments */}
+          {submission.comments && (
             <div>
               <h3 className="font-semibold text-foreground mb-3 flex items-center">
                 <MessageSquare className="h-4 w-4 mr-2 text-primary" />
-                Notes
+                Comments
               </h3>
               <div className="p-4 bg-muted/30 rounded-lg">
-                <p className="text-sm text-foreground">{submission.notes}</p>
+                <p className="text-sm text-foreground whitespace-pre-wrap">{submission.comments}</p>
               </div>
             </div>
           )}
