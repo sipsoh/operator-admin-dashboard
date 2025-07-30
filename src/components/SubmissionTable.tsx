@@ -243,12 +243,12 @@ export const SubmissionTable = ({
     <Card className="shadow-card">
       <CardContent className="p-0">
         <div className="overflow-x-auto">
-          <Table>
+          <Table className="relative">
             <TableHeader>
               <TableRow className="bg-muted/50">
-                <TableHead className="w-12 pt-6">
+                <TableHead className="w-12 pt-6 sticky left-0 bg-muted/50 z-20">
                 </TableHead>
-                <TableHead className="font-semibold min-w-[200px] pt-6">
+                <TableHead className="font-semibold min-w-[200px] pt-6 sticky left-12 bg-muted/50 z-20">
                   <div className="space-y-1">
                     <div className="flex items-center cursor-pointer" onClick={() => handleSort('operator')}>
                       Operator
@@ -267,7 +267,7 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[180px] pt-6">
+                <TableHead className="font-semibold min-w-[180px] pt-6 sticky left-[212px] bg-muted/50 z-20">
                   <div className="space-y-1">
                     <div className="flex items-center cursor-pointer" onClick={() => handleSort('category')}>
                       Category
@@ -286,7 +286,7 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[200px] pt-6">
+                <TableHead className="font-semibold min-w-[200px] pt-6 sticky left-[392px] bg-muted/50 z-20">
                   <div className="space-y-1">
                     <div className="flex items-center cursor-pointer" onClick={() => handleSort('reportType')}>
                       Report Type
@@ -497,7 +497,7 @@ export const SubmissionTable = ({
                         key={submission.id} 
                         className="hover:bg-muted/30 transition-smooth cursor-pointer animate-fade-in"
                       >
-                        <TableCell>
+                        <TableCell className="sticky left-0 bg-card z-10">
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                               <Button variant="ghost" size="sm">
@@ -520,13 +520,13 @@ export const SubmissionTable = ({
                              </DropdownMenuContent>
                            </DropdownMenu>
                          </TableCell>
-                        <TableCell>
+                        <TableCell className="sticky left-12 bg-card z-10">
                           <div className="font-medium text-foreground">{submission.operator}</div>
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="sticky left-[212px] bg-card z-10">
                           <span className="text-sm">{submission.category}</span>
                         </TableCell>
-                         <TableCell>
+                         <TableCell className="sticky left-[392px] bg-card z-10">
                            <span className="text-sm font-medium text-report-type">
                              {submission.reportType}
                            </span>
