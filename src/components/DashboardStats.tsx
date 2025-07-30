@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Clock, CheckCircle, AlertTriangle, FileText, Users } from "lucide-react";
+import { Clock, CheckCircle, AlertTriangle, FileText, XCircle, Eye, Users, FileCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface StatCardProps {
@@ -60,6 +60,27 @@ export const DashboardStats = ({ activeFilter, onFilterChange }: DashboardStatsP
       filterType: "all"
     },
     {
+      title: "Open",
+      value: "23",
+      icon: <FileText className="h-6 w-6" />,
+      color: "primary" as const,
+      filterType: "open"
+    },
+    {
+      title: "Under Review",
+      value: "34",
+      icon: <Eye className="h-6 w-6" />,
+      color: "warning" as const,
+      filterType: "under-review"
+    },
+    {
+      title: "Pending Approval",
+      value: "12",
+      icon: <Clock className="h-6 w-6" />,
+      color: "warning" as const,
+      filterType: "pending-approval"
+    },
+    {
       title: "Approved",
       value: "89",
       icon: <CheckCircle className="h-6 w-6" />,
@@ -67,11 +88,11 @@ export const DashboardStats = ({ activeFilter, onFilterChange }: DashboardStatsP
       filterType: "approved"
     },
     {
-      title: "Pending Review",
-      value: "34",
-      icon: <Clock className="h-6 w-6" />,
-      color: "warning" as const,
-      filterType: "pending"
+      title: "Compliant",
+      value: "67",
+      icon: <FileCheck className="h-6 w-6" />,
+      color: "success" as const,
+      filterType: "compliant"
     },
     {
       title: "Non-Compliant",
@@ -81,23 +102,16 @@ export const DashboardStats = ({ activeFilter, onFilterChange }: DashboardStatsP
       filterType: "non-compliant"
     },
     {
-      title: "Overdue",
-      value: "15",
-      icon: <AlertTriangle className="h-6 w-6" />,
+      title: "Rejected",
+      value: "8",
+      icon: <XCircle className="h-6 w-6" />,
       color: "danger" as const,
-      filterType: "overdue"
-    },
-    {
-      title: "Active Operators",
-      value: "24",
-      icon: <Users className="h-6 w-6" />,
-      color: "primary" as const,
-      filterType: "operators"
+      filterType: "rejected"
     }
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-6 mb-8">
       {stats.map((stat) => (
         <StatCard
           key={stat.filterType}
