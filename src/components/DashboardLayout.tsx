@@ -2,6 +2,7 @@ import { Search, Bell, Settings, Filter, Download, Plus, Calendar } from "lucide
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import sabraLogo from "@/assets/sabra-logo.png";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface DashboardLayoutProps {
@@ -46,8 +47,8 @@ export const DashboardLayout = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-sm">OW</span>
+                <div className="w-8 h-8 flex items-center justify-center">
+                  <img src={sabraLogo} alt="Sabra Logo" className="h-6 w-auto" />
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-foreground">Operator Workflow</h1>
