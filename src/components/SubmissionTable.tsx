@@ -445,18 +445,9 @@ export const SubmissionTable = ({
           <Table>
             <TableHeader>
               <TableRow className="bg-muted/50">
-                <TableHead className="w-12">
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    onClick={clearAllFilters}
-                    className="h-7 text-xs"
-                    title="Clear all filters"
-                  >
-                    <X className="h-3 w-3" />
-                  </Button>
+                <TableHead className="w-12 pt-6">
                 </TableHead>
-                <TableHead className="font-semibold min-w-[200px]">
+                <TableHead className="font-semibold min-w-[200px] pt-6">
                   <div className="space-y-1">
                     <div>Operator</div>
                     <Select value={columnFilters.operator} onValueChange={(value) => updateColumnFilter("operator", value)}>
@@ -472,7 +463,7 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[180px]">
+                <TableHead className="font-semibold min-w-[180px] pt-6">
                   <div className="space-y-1">
                     <div>Category</div>
                     <Select value={columnFilters.category} onValueChange={(value) => updateColumnFilter("category", value)}>
@@ -488,7 +479,7 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[200px]">
+                <TableHead className="font-semibold min-w-[200px] pt-6">
                   <div className="space-y-1">
                     <div>Report Type</div>
                     <Select value={columnFilters.reportType} onValueChange={(value) => updateColumnFilter("reportType", value)}>
@@ -504,7 +495,7 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[120px]">
+                <TableHead className="font-semibold min-w-[120px] pt-6">
                   <div className="space-y-1">
                     <div>Report Party</div>
                     <Select value={columnFilters.reportParty} onValueChange={(value) => updateColumnFilter("reportParty", value)}>
@@ -520,7 +511,7 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[140px]">
+                <TableHead className="font-semibold min-w-[140px] pt-6">
                   <div className="space-y-1">
                     <div>Frequency</div>
                     <Select value={columnFilters.frequency} onValueChange={(value) => updateColumnFilter("frequency", value)}>
@@ -536,8 +527,8 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[120px]">Due Date</TableHead>
-                <TableHead className="font-semibold min-w-[120px]">
+                <TableHead className="font-semibold min-w-[120px] pt-6">Due Date</TableHead>
+                <TableHead className="font-semibold min-w-[120px] pt-6">
                   <div className="space-y-1">
                     <div>Period</div>
                     <Select value={columnFilters.period} onValueChange={(value) => updateColumnFilter("period", value)}>
@@ -553,7 +544,7 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[180px]">
+                <TableHead className="font-semibold min-w-[180px] pt-6">
                   <div className="space-y-1">
                     <div>Lease Name</div>
                     <Select value={columnFilters.leaseName} onValueChange={(value) => updateColumnFilter("leaseName", value)}>
@@ -569,7 +560,7 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[140px]">
+                <TableHead className="font-semibold min-w-[140px] pt-6">
                   <div className="space-y-1">
                     <div>Properties</div>
                     <Select value={columnFilters.properties} onValueChange={(value) => updateColumnFilter("properties", value)}>
@@ -585,8 +576,8 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[120px]">Received Date</TableHead>
-                <TableHead className="font-semibold min-w-[120px]">
+                <TableHead className="font-semibold min-w-[120px] pt-6">Received Date</TableHead>
+                <TableHead className="font-semibold min-w-[120px] pt-6">
                   <div className="space-y-1">
                     <div>Status</div>
                     <Select value={columnFilters.status} onValueChange={(value) => updateColumnFilter("status", value)}>
@@ -602,7 +593,7 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[140px]">
+                <TableHead className="font-semibold min-w-[140px] pt-6">
                   <div className="space-y-1">
                     <div>Reviewer/Approver</div>
                     <Select value={columnFilters.reviewerApprover} onValueChange={(value) => updateColumnFilter("reviewerApprover", value)}>
@@ -618,8 +609,8 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[120px]"># of Days under Status</TableHead>
-                <TableHead className="font-semibold min-w-[200px]">Comments</TableHead>
+                <TableHead className="font-semibold min-w-[120px] pt-6"># of Days under Status</TableHead>
+                <TableHead className="font-semibold min-w-[200px] pt-6">Comments</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
