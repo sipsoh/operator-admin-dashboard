@@ -101,7 +101,7 @@ export const ViewDetailsDialog = ({ submission, open, onOpenChange, onSubmission
               
               <div>
                 <h3 className="font-semibold text-foreground mb-2">Report Type</h3>
-                <span className="text-sm font-medium text-primary">
+                <span className="text-sm font-medium text-report-type">
                   {submission.reportType}
                 </span>
               </div>

@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { StatusBadge, Status } from "./StatusBadge";
-import { MoreHorizontal, Eye, Edit, MessageSquare, Calendar, Building, User, ChevronDown, ChevronRight, Filter, X } from "lucide-react";
+import { MoreHorizontal, Eye, Edit, MessageSquare, Calendar, Building, User, ChevronDown, ChevronRight, Filter, X, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ViewDetailsDialog } from "./ViewDetailsDialog";
@@ -58,6 +58,12 @@ export const SubmissionTable = ({
     reviewerApprover: "all"
   });
 
+  // Sorting state
+  const [sortConfig, setSortConfig] = useState<{
+    key: keyof Submission | null;
+    direction: 'asc' | 'desc';
+  }>({ key: null, direction: 'asc' });
+
   // Get unique values for each column
   const getUniqueValues = (field: keyof Submission) => {
     const values = [...new Set(submissions.map(sub => sub[field] as string))];
@@ -86,6 +92,22 @@ export const SubmissionTable = ({
     });
   };
 
+  const handleSort = (key: keyof Submission) => {
+    setSortConfig(prevConfig => ({
+      key,
+      direction: prevConfig.key === key && prevConfig.direction === 'asc' ? 'desc' : 'asc'
+    }));
+  };
+
+  const getSortIcon = (key: keyof Submission) => {
+    if (sortConfig.key !== key) {
+      return <ArrowUpDown className="h-3 w-3 ml-1 text-muted-foreground" />;
+    }
+    return sortConfig.direction === 'asc' 
+      ? <ArrowUp className="h-3 w-3 ml-1 text-primary" />
+      : <ArrowDown className="h-3 w-3 ml-1 text-primary" />;
+  };
+
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString('en-US', {
       month: 'short',
@@ -102,8 +124,8 @@ export const SubmissionTable = ({
     return diffDays > 0 ? diffDays : 0;
   };
 
-  // Filter the data based on the active filters  
-  const filteredData = filterSubmissions(submissions, {
+  // Filter and sort the data
+  const filteredAndSortedData = filterSubmissions(submissions, {
     searchQuery,
     statusFilter,
     reportTypeFilter,
@@ -122,10 +144,39 @@ export const SubmissionTable = ({
     if (columnFilters.reviewerApprover !== "all" && submission.reviewerApprover !== columnFilters.reviewerApprover) return false;
     
     return true;
+  }).sort((a, b) => {
+    if (!sortConfig.key) return 0;
+    
+    const aValue = a[sortConfig.key];
+    const bValue = b[sortConfig.key];
+    
+    // Handle date sorting
+    if (sortConfig.key === 'dueDate' || sortConfig.key === 'receivedDate') {
+      const aDate = new Date(aValue as string);
+      const bDate = new Date(bValue as string);
+      return sortConfig.direction === 'asc' 
+        ? aDate.getTime() - bDate.getTime()
+        : bDate.getTime() - aDate.getTime();
+    }
+    
+    // Handle numeric sorting
+    if (sortConfig.key === 'daysUnderStatus') {
+      return sortConfig.direction === 'asc'
+        ? (aValue as number) - (bValue as number)
+        : (bValue as number) - (aValue as number);
+    }
+    
+    // Handle string sorting
+    const aStr = String(aValue).toLowerCase();
+    const bStr = String(bValue).toLowerCase();
+    
+    if (aStr < bStr) return sortConfig.direction === 'asc' ? -1 : 1;
+    if (aStr > bStr) return sortConfig.direction === 'asc' ? 1 : -1;
+    return 0;
   });
 
-  // Group the filtered data by operator
-  const groupedData = filteredData.reduce((groups, submission) => {
+  // Group the filtered and sorted data by operator
+  const groupedData = filteredAndSortedData.reduce((groups, submission) => {
     const operator = submission.operator;
     if (!groups[operator]) {
       groups[operator] = [];
@@ -199,7 +250,10 @@ export const SubmissionTable = ({
                 </TableHead>
                 <TableHead className="font-semibold min-w-[200px] pt-6">
                   <div className="space-y-1">
-                    <div>Operator</div>
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('operator')}>
+                      Operator
+                      {getSortIcon('operator')}
+                    </div>
                     <Select value={columnFilters.operator} onValueChange={(value) => updateColumnFilter("operator", value)}>
                       <SelectTrigger className="h-7 text-xs">
                         <SelectValue placeholder="All" />
@@ -215,7 +269,10 @@ export const SubmissionTable = ({
                 </TableHead>
                 <TableHead className="font-semibold min-w-[180px] pt-6">
                   <div className="space-y-1">
-                    <div>Category</div>
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('category')}>
+                      Category
+                      {getSortIcon('category')}
+                    </div>
                     <Select value={columnFilters.category} onValueChange={(value) => updateColumnFilter("category", value)}>
                       <SelectTrigger className="h-7 text-xs">
                         <SelectValue placeholder="All" />
@@ -231,7 +288,10 @@ export const SubmissionTable = ({
                 </TableHead>
                 <TableHead className="font-semibold min-w-[200px] pt-6">
                   <div className="space-y-1">
-                    <div>Report Type</div>
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('reportType')}>
+                      Report Type
+                      {getSortIcon('reportType')}
+                    </div>
                     <Select value={columnFilters.reportType} onValueChange={(value) => updateColumnFilter("reportType", value)}>
                       <SelectTrigger className="h-7 text-xs">
                         <SelectValue placeholder="All" />
@@ -247,7 +307,10 @@ export const SubmissionTable = ({
                 </TableHead>
                 <TableHead className="font-semibold min-w-[120px] pt-6">
                   <div className="space-y-1">
-                    <div>Report Party</div>
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('reportParty')}>
+                      Report Party
+                      {getSortIcon('reportParty')}
+                    </div>
                     <Select value={columnFilters.reportParty} onValueChange={(value) => updateColumnFilter("reportParty", value)}>
                       <SelectTrigger className="h-7 text-xs">
                         <SelectValue placeholder="All" />
@@ -263,7 +326,10 @@ export const SubmissionTable = ({
                 </TableHead>
                 <TableHead className="font-semibold min-w-[140px] pt-6">
                   <div className="space-y-1">
-                    <div>Frequency</div>
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('frequency')}>
+                      Frequency
+                      {getSortIcon('frequency')}
+                    </div>
                     <Select value={columnFilters.frequency} onValueChange={(value) => updateColumnFilter("frequency", value)}>
                       <SelectTrigger className="h-7 text-xs">
                         <SelectValue placeholder="All" />
@@ -277,10 +343,18 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[120px] pt-6">Due Date</TableHead>
+                <TableHead className="font-semibold min-w-[120px] pt-6">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('dueDate')}>
+                    Due Date
+                    {getSortIcon('dueDate')}
+                  </div>
+                </TableHead>
                 <TableHead className="font-semibold min-w-[120px] pt-6">
                   <div className="space-y-1">
-                    <div>Period</div>
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('period')}>
+                      Period
+                      {getSortIcon('period')}
+                    </div>
                     <Select value={columnFilters.period} onValueChange={(value) => updateColumnFilter("period", value)}>
                       <SelectTrigger className="h-7 text-xs">
                         <SelectValue placeholder="All" />
@@ -296,7 +370,10 @@ export const SubmissionTable = ({
                 </TableHead>
                 <TableHead className="font-semibold min-w-[180px] pt-6">
                   <div className="space-y-1">
-                    <div>Lease Name</div>
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('leaseName')}>
+                      Lease Name
+                      {getSortIcon('leaseName')}
+                    </div>
                     <Select value={columnFilters.leaseName} onValueChange={(value) => updateColumnFilter("leaseName", value)}>
                       <SelectTrigger className="h-7 text-xs">
                         <SelectValue placeholder="All" />
@@ -312,7 +389,10 @@ export const SubmissionTable = ({
                 </TableHead>
                 <TableHead className="font-semibold min-w-[140px] pt-6">
                   <div className="space-y-1">
-                    <div>Properties</div>
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('properties')}>
+                      Properties
+                      {getSortIcon('properties')}
+                    </div>
                     <Select value={columnFilters.properties} onValueChange={(value) => updateColumnFilter("properties", value)}>
                       <SelectTrigger className="h-7 text-xs">
                         <SelectValue placeholder="All" />
@@ -326,10 +406,18 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[120px] pt-6">Received Date</TableHead>
+                <TableHead className="font-semibold min-w-[120px] pt-6">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('receivedDate')}>
+                    Received Date
+                    {getSortIcon('receivedDate')}
+                  </div>
+                </TableHead>
                 <TableHead className="font-semibold min-w-[120px] pt-6">
                   <div className="space-y-1">
-                    <div>Status</div>
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('status')}>
+                      Status
+                      {getSortIcon('status')}
+                    </div>
                     <Select value={columnFilters.status} onValueChange={(value) => updateColumnFilter("status", value)}>
                       <SelectTrigger className="h-7 text-xs">
                         <SelectValue placeholder="All" />
@@ -345,7 +433,10 @@ export const SubmissionTable = ({
                 </TableHead>
                 <TableHead className="font-semibold min-w-[140px] pt-6">
                   <div className="space-y-1">
-                    <div>Reviewer/Approver</div>
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('reviewerApprover')}>
+                      Reviewer/Approver
+                      {getSortIcon('reviewerApprover')}
+                    </div>
                     <Select value={columnFilters.reviewerApprover} onValueChange={(value) => updateColumnFilter("reviewerApprover", value)}>
                       <SelectTrigger className="h-7 text-xs">
                         <SelectValue placeholder="All" />
@@ -359,8 +450,18 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[120px] pt-6"># of Days under Status</TableHead>
-                <TableHead className="font-semibold min-w-[200px] pt-6">Comments</TableHead>
+                <TableHead className="font-semibold min-w-[120px] pt-6">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('daysUnderStatus')}>
+                    # of Days under Status
+                    {getSortIcon('daysUnderStatus')}
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[200px] pt-6">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('comments')}>
+                    Comments
+                    {getSortIcon('comments')}
+                  </div>
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -425,11 +526,11 @@ export const SubmissionTable = ({
                         <TableCell>
                           <span className="text-sm">{submission.category}</span>
                         </TableCell>
-                        <TableCell>
-                          <span className="text-sm font-medium text-primary">
-                            {submission.reportType}
-                          </span>
-                        </TableCell>
+                         <TableCell>
+                           <span className="text-sm font-medium text-report-type">
+                             {submission.reportType}
+                           </span>
+                         </TableCell>
                         <TableCell>
                           <span className="text-sm">{submission.reportParty}</span>
                         </TableCell>

@@ -74,6 +74,10 @@ export default {
 					foreground: 'hsl(var(--pending-foreground))',
 					light: 'hsl(var(--pending-light))'
 				},
+				'report-type': {
+					DEFAULT: 'hsl(var(--report-type))',
+					foreground: 'hsl(var(--report-type-foreground))'
+				},
 				/* Dashboard Specific */
 				dashboard: {
 					nav: 'hsl(var(--dashboard-nav))',
