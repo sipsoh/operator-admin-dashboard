@@ -445,6 +445,17 @@ export const SubmissionTable = ({
           <Table>
             <TableHeader>
               <TableRow className="bg-muted/50">
+                <TableHead className="w-12">
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={clearAllFilters}
+                    className="h-7 text-xs"
+                    title="Clear all filters"
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
+                </TableHead>
                 <TableHead className="font-semibold min-w-[200px]">
                   <div className="space-y-1">
                     <div>Operator</div>
@@ -609,17 +620,6 @@ export const SubmissionTable = ({
                 </TableHead>
                 <TableHead className="font-semibold min-w-[120px]"># of Days under Status</TableHead>
                 <TableHead className="font-semibold min-w-[200px]">Comments</TableHead>
-                <TableHead className="w-12">
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    onClick={clearAllFilters}
-                    className="h-7 text-xs"
-                    title="Clear all filters"
-                  >
-                    <X className="h-3 w-3" />
-                  </Button>
-                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -655,6 +655,29 @@ export const SubmissionTable = ({
                         key={submission.id} 
                         className="hover:bg-muted/30 transition-smooth cursor-pointer animate-fade-in"
                       >
+                        <TableCell>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="sm">
+                                <MoreHorizontal className="h-4 w-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                             <DropdownMenuContent align="end">
+                               <DropdownMenuItem onClick={() => handleViewDetails(submission)}>
+                                 <Eye className="h-4 w-4 mr-2" />
+                                 View Details
+                               </DropdownMenuItem>
+                               <DropdownMenuItem onClick={() => handleEditStatus(submission)}>
+                                 <Edit className="h-4 w-4 mr-2" />
+                                 Edit Status
+                               </DropdownMenuItem>
+                               <DropdownMenuItem onClick={() => handleAddComment(submission)}>
+                                 <MessageSquare className="h-4 w-4 mr-2" />
+                                 Add Comment
+                               </DropdownMenuItem>
+                             </DropdownMenuContent>
+                           </DropdownMenu>
+                         </TableCell>
                         <TableCell>
                           <div className="font-medium text-foreground">{submission.operator}</div>
                         </TableCell>
@@ -711,37 +734,14 @@ export const SubmissionTable = ({
                             {submission.comments || "-"}
                           </div>
                         </TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="sm">
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                             <DropdownMenuContent align="end">
-                               <DropdownMenuItem onClick={() => handleViewDetails(submission)}>
-                                 <Eye className="h-4 w-4 mr-2" />
-                                 View Details
-                               </DropdownMenuItem>
-                               <DropdownMenuItem onClick={() => handleEditStatus(submission)}>
-                                 <Edit className="h-4 w-4 mr-2" />
-                                 Edit Status
-                               </DropdownMenuItem>
-                               <DropdownMenuItem onClick={() => handleAddComment(submission)}>
-                                 <MessageSquare className="h-4 w-4 mr-2" />
-                                 Add Comment
-                               </DropdownMenuItem>
-                             </DropdownMenuContent>
-                           </DropdownMenu>
-                         </TableCell>
-                       </TableRow>
-                     ))
-                   }
-                 </>
-               ))}
-             </TableBody>
-           </Table>
-         </div>
+                      </TableRow>
+                    ))
+                  }
+                </>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
        </CardContent>
 
        {/* Dialog Components */}
