@@ -27,7 +27,7 @@
     --success-light: 138 76% 97%;
 
     /* Report Type Color */
-    --report-type: 142 71% 45%;
+    --report-type: 217 91% 60%; /* Blue color for report type */
     --report-type-foreground: 0 0% 100%;
 
     --warning: 38 92% 50%;

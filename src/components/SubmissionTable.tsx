@@ -540,9 +540,12 @@ export const SubmissionTable = ({
                           <span className="text-sm">{submission.category}</span>
                         </TableCell>
                          <TableCell className="sticky left-[392px] bg-card z-10">
-                           <span className="text-sm font-medium text-report-type">
+                           <button
+                             className="text-sm font-medium text-report-type hover:text-report-type/80 underline cursor-pointer transition-colors"
+                             onClick={() => handleViewDetails(submission)}
+                           >
                              {submission.reportType}
-                           </span>
+                           </button>
                          </TableCell>
                         <TableCell>
                           <span className="text-sm">{submission.frequency}</span>
