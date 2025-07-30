@@ -539,9 +539,9 @@ export const SubmissionTable = ({
                         <TableCell className="sticky left-[212px] bg-card z-10">
                           <span className="text-sm">{submission.category}</span>
                         </TableCell>
-                         <TableCell className="sticky left-[392px] bg-card z-10">
+                         <TableCell className="sticky left-[392px] bg-card z-10 text-left">
                            <button
-                             className="text-sm font-medium text-report-type hover:text-report-type/80 underline cursor-pointer transition-colors"
+                             className="text-sm font-medium text-report-type hover:text-report-type/80 underline cursor-pointer transition-colors text-left"
                              onClick={() => handleViewDetails(submission)}
                            >
                              {submission.reportType}
