@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { StatusBadge, Status } from "./StatusBadge";
-import { MoreHorizontal, Eye, Edit, MessageSquare, Calendar, Building, User, ChevronDown, ChevronRight, Filter, X, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
+import { MoreHorizontal, Eye, Edit, MessageSquare, Calendar, Building, User, ChevronDown, ChevronRight, Filter, X, ArrowUpDown, ArrowUp, ArrowDown, Expand, Minimize2 } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ViewDetailsDialog } from "./ViewDetailsDialog";
@@ -201,6 +201,15 @@ export const SubmissionTable = ({
     });
   };
 
+  // Expand/Collapse all operators
+  const expandAllOperators = () => {
+    setExpandedOperators(new Set(Object.keys(groupedData)));
+  };
+
+  const collapseAllOperators = () => {
+    setExpandedOperators(new Set());
+  };
+
   // Dialog handlers
   const handleViewDetails = (submission: Submission) => {
     setSelectedSubmission(submission);
@@ -239,6 +248,31 @@ export const SubmissionTable = ({
 
   return (
     <Card className="shadow-card">
+      <CardHeader className="pb-3">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-lg font-semibold">Submissions</CardTitle>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={expandAllOperators}
+              className="h-8 px-3 text-xs"
+            >
+              <Expand className="h-3 w-3 mr-1" />
+              Expand All
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={collapseAllOperators}
+              className="h-8 px-3 text-xs"
+            >
+              <Minimize2 className="h-3 w-3 mr-1" />
+              Collapse All
+            </Button>
+          </div>
+        </div>
+      </CardHeader>
       <CardContent className="p-0">
         <div className="overflow-x-auto">
           <Table className="relative">
