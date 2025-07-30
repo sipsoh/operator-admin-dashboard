@@ -458,105 +458,185 @@ export const SubmissionTable = ({
         </div>
       </CardHeader>
       <CardContent className="p-0">
-        {/* Filters Row */}
-        <div className="p-4 border-b border-border bg-muted/30">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-2">
-              <Filter className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm font-medium">Column Filters</span>
-            </div>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={clearAllFilters}
-              className="text-xs"
-            >
-              <X className="h-3 w-3 mr-1" />
-              Clear All
-            </Button>
-          </div>
-          <div className="grid grid-cols-5 gap-3">
-            <Select value={columnFilters.operator} onValueChange={(value) => updateColumnFilter("operator", value)}>
-              <SelectTrigger className="h-8 text-xs">
-                <SelectValue placeholder="Operator" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Operators</SelectItem>
-                {getUniqueValues("operator").map(value => (
-                  <SelectItem key={value} value={value}>{value}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select value={columnFilters.category} onValueChange={(value) => updateColumnFilter("category", value)}>
-              <SelectTrigger className="h-8 text-xs">
-                <SelectValue placeholder="Category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                {getUniqueValues("category").map(value => (
-                  <SelectItem key={value} value={value}>{value}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select value={columnFilters.reportType} onValueChange={(value) => updateColumnFilter("reportType", value)}>
-              <SelectTrigger className="h-8 text-xs">
-                <SelectValue placeholder="Report Type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Report Types</SelectItem>
-                {getUniqueValues("reportType").map(value => (
-                  <SelectItem key={value} value={value}>{value}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select value={columnFilters.status} onValueChange={(value) => updateColumnFilter("status", value)}>
-              <SelectTrigger className="h-8 text-xs">
-                <SelectValue placeholder="Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Statuses</SelectItem>
-                {getUniqueValues("status").map(value => (
-                  <SelectItem key={value} value={value}>{value}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select value={columnFilters.reviewerApprover} onValueChange={(value) => updateColumnFilter("reviewerApprover", value)}>
-              <SelectTrigger className="h-8 text-xs">
-                <SelectValue placeholder="Reviewer" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Reviewers</SelectItem>
-                {getUniqueValues("reviewerApprover").map(value => (
-                  <SelectItem key={value} value={value}>{value}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow className="bg-muted/50">
-                <TableHead className="font-semibold">Operator</TableHead>
-                <TableHead className="font-semibold">Category</TableHead>
-                <TableHead className="font-semibold">Report Type</TableHead>
-                <TableHead className="font-semibold">Report Party</TableHead>
-                <TableHead className="font-semibold">Frequency</TableHead>
-                <TableHead className="font-semibold">Due Date</TableHead>
-                <TableHead className="font-semibold">Period</TableHead>
-                <TableHead className="font-semibold">Lease Name</TableHead>
-                <TableHead className="font-semibold">Properties</TableHead>
-                <TableHead className="font-semibold">Received Date</TableHead>
-                <TableHead className="font-semibold">Status</TableHead>
-                <TableHead className="font-semibold">Reviewer/Approver</TableHead>
-                <TableHead className="font-semibold"># of Days under Status</TableHead>
-                <TableHead className="font-semibold">Comments</TableHead>
-                <TableHead className="w-12"></TableHead>
+                <TableHead className="font-semibold min-w-[200px]">
+                  <div className="space-y-1">
+                    <div>Operator</div>
+                    <Select value={columnFilters.operator} onValueChange={(value) => updateColumnFilter("operator", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("operator").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[180px]">
+                  <div className="space-y-1">
+                    <div>Category</div>
+                    <Select value={columnFilters.category} onValueChange={(value) => updateColumnFilter("category", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("category").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[200px]">
+                  <div className="space-y-1">
+                    <div>Report Type</div>
+                    <Select value={columnFilters.reportType} onValueChange={(value) => updateColumnFilter("reportType", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("reportType").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[120px]">
+                  <div className="space-y-1">
+                    <div>Report Party</div>
+                    <Select value={columnFilters.reportParty} onValueChange={(value) => updateColumnFilter("reportParty", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("reportParty").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[140px]">
+                  <div className="space-y-1">
+                    <div>Frequency</div>
+                    <Select value={columnFilters.frequency} onValueChange={(value) => updateColumnFilter("frequency", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("frequency").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[120px]">Due Date</TableHead>
+                <TableHead className="font-semibold min-w-[120px]">
+                  <div className="space-y-1">
+                    <div>Period</div>
+                    <Select value={columnFilters.period} onValueChange={(value) => updateColumnFilter("period", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("period").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[180px]">
+                  <div className="space-y-1">
+                    <div>Lease Name</div>
+                    <Select value={columnFilters.leaseName} onValueChange={(value) => updateColumnFilter("leaseName", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("leaseName").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[140px]">
+                  <div className="space-y-1">
+                    <div>Properties</div>
+                    <Select value={columnFilters.properties} onValueChange={(value) => updateColumnFilter("properties", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("properties").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[120px]">Received Date</TableHead>
+                <TableHead className="font-semibold min-w-[120px]">
+                  <div className="space-y-1">
+                    <div>Status</div>
+                    <Select value={columnFilters.status} onValueChange={(value) => updateColumnFilter("status", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("status").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[140px]">
+                  <div className="space-y-1">
+                    <div>Reviewer/Approver</div>
+                    <Select value={columnFilters.reviewerApprover} onValueChange={(value) => updateColumnFilter("reviewerApprover", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("reviewerApprover").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[120px]"># of Days under Status</TableHead>
+                <TableHead className="font-semibold min-w-[200px]">Comments</TableHead>
+                <TableHead className="w-12">
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={clearAllFilters}
+                    className="h-7 text-xs"
+                    title="Clear all filters"
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
