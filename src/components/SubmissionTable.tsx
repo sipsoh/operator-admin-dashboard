@@ -54,7 +54,11 @@ export const SubmissionTable = ({
     leaseName: "all",
     properties: "all",
     status: "all",
-    reviewerApprover: "all"
+    reviewerApprover: "all",
+    assetManager: "all",
+    invManager: "all",
+    leaseAdmin: "all",
+    invAssociate: "all"
   });
 
   // Sorting state
@@ -86,7 +90,11 @@ export const SubmissionTable = ({
       leaseName: "all",
       properties: "all",
       status: "all",
-      reviewerApprover: "all"
+      reviewerApprover: "all",
+      assetManager: "all",
+      invManager: "all",
+      leaseAdmin: "all",
+      invAssociate: "all"
     });
   };
 
@@ -140,6 +148,10 @@ export const SubmissionTable = ({
     if (columnFilters.properties !== "all" && submission.properties !== columnFilters.properties) return false;
     if (columnFilters.status !== "all" && submission.status !== columnFilters.status) return false;
     if (columnFilters.reviewerApprover !== "all" && submission.reviewerApprover !== columnFilters.reviewerApprover) return false;
+    if (columnFilters.assetManager !== "all" && submission.assetManager !== columnFilters.assetManager) return false;
+    if (columnFilters.invManager !== "all" && submission.invManager !== columnFilters.invManager) return false;
+    if (columnFilters.leaseAdmin !== "all" && submission.leaseAdmin !== columnFilters.leaseAdmin) return false;
+    if (columnFilters.invAssociate !== "all" && submission.invAssociate !== columnFilters.invAssociate) return false;
     
     return true;
   }).sort((a, b) => {
@@ -471,34 +483,86 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
+                <TableHead className="font-semibold min-w-[140px] pt-6">
+                  <div className="space-y-1">
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('assetManager')}>
+                      Asset Manager
+                      {getSortIcon('assetManager')}
+                    </div>
+                    <Select value={columnFilters.assetManager} onValueChange={(value) => updateColumnFilter("assetManager", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("assetManager").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[140px] pt-6">
+                  <div className="space-y-1">
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('invManager')}>
+                      INV Manager
+                      {getSortIcon('invManager')}
+                    </div>
+                    <Select value={columnFilters.invManager} onValueChange={(value) => updateColumnFilter("invManager", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("invManager").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[140px] pt-6">
+                  <div className="space-y-1">
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('leaseAdmin')}>
+                      Lease Admin
+                      {getSortIcon('leaseAdmin')}
+                    </div>
+                    <Select value={columnFilters.leaseAdmin} onValueChange={(value) => updateColumnFilter("leaseAdmin", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("leaseAdmin").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[140px] pt-6">
+                  <div className="space-y-1">
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('invAssociate')}>
+                      INV Associate
+                      {getSortIcon('invAssociate')}
+                    </div>
+                    <Select value={columnFilters.invAssociate} onValueChange={(value) => updateColumnFilter("invAssociate", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("invAssociate").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
                 <TableHead className="font-semibold min-w-[200px] pt-6">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('comments')}>
                     Comments
                     {getSortIcon('comments')}
-                  </div>
-                </TableHead>
-                <TableHead className="font-semibold min-w-[140px] pt-6">
-                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('assetManager')}>
-                    Asset Manager
-                    {getSortIcon('assetManager')}
-                  </div>
-                </TableHead>
-                <TableHead className="font-semibold min-w-[140px] pt-6">
-                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('invManager')}>
-                    INV Manager
-                    {getSortIcon('invManager')}
-                  </div>
-                </TableHead>
-                <TableHead className="font-semibold min-w-[140px] pt-6">
-                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('leaseAdmin')}>
-                    Lease Admin
-                    {getSortIcon('leaseAdmin')}
-                  </div>
-                </TableHead>
-                <TableHead className="font-semibold min-w-[140px] pt-6">
-                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('invAssociate')}>
-                    INV Associate
-                    {getSortIcon('invAssociate')}
                   </div>
                 </TableHead>
               </TableRow>
@@ -611,11 +675,6 @@ export const SubmissionTable = ({
                            <span className="text-sm">{submission.properties}</span>
                          </TableCell>
                           <TableCell>
-                            <div className="text-sm max-w-40 truncate">
-                              {submission.comments || "-"}
-                            </div>
-                          </TableCell>
-                          <TableCell>
                             <span className="text-sm">{submission.assetManager}</span>
                           </TableCell>
                           <TableCell>
@@ -626,6 +685,11 @@ export const SubmissionTable = ({
                           </TableCell>
                           <TableCell>
                             <span className="text-sm">{submission.invAssociate}</span>
+                          </TableCell>
+                          <TableCell>
+                            <div className="text-sm max-w-40 truncate">
+                              {submission.comments || "-"}
+                            </div>
                           </TableCell>
                        </TableRow>
                     ))
