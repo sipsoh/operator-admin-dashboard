@@ -4,8 +4,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { StatusBadge, Status } from "./StatusBadge";
-import { MoreHorizontal, Eye, Edit, MessageSquare, Calendar, Building, User, ChevronDown, ChevronRight } from "lucide-react";
+import { MoreHorizontal, Eye, Edit, MessageSquare, Calendar, Building, User, ChevronDown, ChevronRight, Filter, X } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ViewDetailsDialog } from "./ViewDetailsDialog";
 import { EditStatusDialog } from "./EditStatusDialog";
 import { AddCommentDialog } from "./AddCommentDialog";
@@ -284,6 +285,48 @@ export const SubmissionTable = ({
   // Mock data with state - in real app this would come from a state management system
   const [submissions, setSubmissions] = useState<Submission[]>(mockData);
 
+  // Column filters state
+  const [columnFilters, setColumnFilters] = useState({
+    operator: "all",
+    category: "all",
+    reportType: "all", 
+    reportParty: "all",
+    frequency: "all",
+    period: "all",
+    leaseName: "all",
+    properties: "all",
+    status: "all",
+    reviewerApprover: "all"
+  });
+
+  // Get unique values for each column
+  const getUniqueValues = (field: keyof Submission) => {
+    const values = [...new Set(submissions.map(sub => sub[field] as string))];
+    return values.filter(value => value && value.trim() !== "").sort();
+  };
+
+  const updateColumnFilter = (column: string, value: string) => {
+    setColumnFilters(prev => ({
+      ...prev,
+      [column]: value
+    }));
+  };
+
+  const clearAllFilters = () => {
+    setColumnFilters({
+      operator: "all",
+      category: "all",
+      reportType: "all", 
+      reportParty: "all",
+      frequency: "all",
+      period: "all",
+      leaseName: "all",
+      properties: "all",
+      status: "all",
+      reviewerApprover: "all"
+    });
+  };
+
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString('en-US', {
       month: 'short',
@@ -312,6 +355,18 @@ export const SubmissionTable = ({
       const reportTypeKey = submission.reportType.toLowerCase().replace(/\s+/g, '-');
       if (reportTypeKey !== reportTypeFilter) return false;
     }
+
+    // Column filters
+    if (columnFilters.operator !== "all" && submission.operator !== columnFilters.operator) return false;
+    if (columnFilters.category !== "all" && submission.category !== columnFilters.category) return false;
+    if (columnFilters.reportType !== "all" && submission.reportType !== columnFilters.reportType) return false;
+    if (columnFilters.reportParty !== "all" && submission.reportParty !== columnFilters.reportParty) return false;
+    if (columnFilters.frequency !== "all" && submission.frequency !== columnFilters.frequency) return false;
+    if (columnFilters.period !== "all" && submission.period !== columnFilters.period) return false;
+    if (columnFilters.leaseName !== "all" && submission.leaseName !== columnFilters.leaseName) return false;
+    if (columnFilters.properties !== "all" && submission.properties !== columnFilters.properties) return false;
+    if (columnFilters.status !== "all" && submission.status !== columnFilters.status) return false;
+    if (columnFilters.reviewerApprover !== "all" && submission.reviewerApprover !== columnFilters.reviewerApprover) return false;
     
     // Date range filter would go here (currently just showing all data)
     // This would typically filter by submission date or due date based on dateRangeFilter
@@ -403,6 +458,86 @@ export const SubmissionTable = ({
         </div>
       </CardHeader>
       <CardContent className="p-0">
+        {/* Filters Row */}
+        <div className="p-4 border-b border-border bg-muted/30">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-2">
+              <Filter className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm font-medium">Column Filters</span>
+            </div>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={clearAllFilters}
+              className="text-xs"
+            >
+              <X className="h-3 w-3 mr-1" />
+              Clear All
+            </Button>
+          </div>
+          <div className="grid grid-cols-5 gap-3">
+            <Select value={columnFilters.operator} onValueChange={(value) => updateColumnFilter("operator", value)}>
+              <SelectTrigger className="h-8 text-xs">
+                <SelectValue placeholder="Operator" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Operators</SelectItem>
+                {getUniqueValues("operator").map(value => (
+                  <SelectItem key={value} value={value}>{value}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={columnFilters.category} onValueChange={(value) => updateColumnFilter("category", value)}>
+              <SelectTrigger className="h-8 text-xs">
+                <SelectValue placeholder="Category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+                {getUniqueValues("category").map(value => (
+                  <SelectItem key={value} value={value}>{value}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={columnFilters.reportType} onValueChange={(value) => updateColumnFilter("reportType", value)}>
+              <SelectTrigger className="h-8 text-xs">
+                <SelectValue placeholder="Report Type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Report Types</SelectItem>
+                {getUniqueValues("reportType").map(value => (
+                  <SelectItem key={value} value={value}>{value}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={columnFilters.status} onValueChange={(value) => updateColumnFilter("status", value)}>
+              <SelectTrigger className="h-8 text-xs">
+                <SelectValue placeholder="Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Statuses</SelectItem>
+                {getUniqueValues("status").map(value => (
+                  <SelectItem key={value} value={value}>{value}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={columnFilters.reviewerApprover} onValueChange={(value) => updateColumnFilter("reviewerApprover", value)}>
+              <SelectTrigger className="h-8 text-xs">
+                <SelectValue placeholder="Reviewer" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Reviewers</SelectItem>
+                {getUniqueValues("reviewerApprover").map(value => (
+                  <SelectItem key={value} value={value}>{value}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
