@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { StatusBadge, Status } from "./StatusBadge";
 import { Button } from "@/components/ui/button";
 import { Building, User, Calendar, FileText, Clock, MessageSquare } from "lucide-react";
+import { EditSubmissionDialog } from "./EditSubmissionDialog";
 
 interface Submission {
   id: string;
@@ -27,9 +28,12 @@ interface ViewDetailsDialogProps {
   submission: Submission | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onSubmissionUpdate?: (updatedSubmission: Submission) => void;
 }
 
-export const ViewDetailsDialog = ({ submission, open, onOpenChange }: ViewDetailsDialogProps) => {
+export const ViewDetailsDialog = ({ submission, open, onOpenChange, onSubmissionUpdate }: ViewDetailsDialogProps) => {
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  
   if (!submission) return null;
 
   const formatDate = (dateStr: string) => {
@@ -172,11 +176,22 @@ export const ViewDetailsDialog = ({ submission, open, onOpenChange }: ViewDetail
             <Button variant="outline" onClick={() => onOpenChange(false)}>
               Close
             </Button>
-            <Button>
+            <Button onClick={() => setEditDialogOpen(true)}>
               Edit Submission
             </Button>
           </div>
         </div>
+
+        {/* Edit Submission Dialog */}
+        <EditSubmissionDialog
+          submission={submission}
+          open={editDialogOpen}
+          onOpenChange={setEditDialogOpen}
+          onSubmissionUpdate={(updatedSubmission) => {
+            onSubmissionUpdate?.(updatedSubmission);
+            setEditDialogOpen(false);
+          }}
+        />
       </DialogContent>
     </Dialog>
   );
