@@ -86,48 +86,6 @@ export const DashboardLayout = ({
               </div>
             </div>
           </div>
-          
-          {/* Filter Bar */}
-          <div className="flex items-center space-x-4 mt-4 pt-4 border-t border-border">
-            <div className="flex items-center space-x-2">
-              <label className="text-sm font-medium text-foreground">Report Type:</label>
-              <Select value={reportType} onValueChange={onReportTypeChange}>
-                <SelectTrigger className="w-48">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {reportTypes.map((type) => (
-                    <SelectItem key={type.value} value={type.value}>
-                      {type.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="flex items-center space-x-2">
-              <label className="text-sm font-medium text-foreground">Date Range:</label>
-              <Select value={dateRange} onValueChange={onDateRangeChange}>
-                <SelectTrigger className="w-40">
-                  <Calendar className="h-4 w-4 mr-2" />
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {dateRanges.map((range) => (
-                    <SelectItem key={range.value} value={range.value}>
-                      {range.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="flex-1" />
-            
-            <Button variant="outline" size="sm">
-              Clear Filters
-            </Button>
-          </div>
         </div>
       </header>
 
