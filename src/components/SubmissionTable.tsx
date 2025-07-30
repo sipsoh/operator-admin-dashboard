@@ -337,6 +337,62 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
+                <TableHead className="font-semibold min-w-[120px] pt-6">
+                  <div className="space-y-1">
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('status')}>
+                      Status
+                      {getSortIcon('status')}
+                    </div>
+                    <Select value={columnFilters.status} onValueChange={(value) => updateColumnFilter("status", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("status").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[140px] pt-6">
+                  <div className="space-y-1">
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('reviewerApprover')}>
+                      Reviewer/Approver
+                      {getSortIcon('reviewerApprover')}
+                    </div>
+                    <Select value={columnFilters.reviewerApprover} onValueChange={(value) => updateColumnFilter("reviewerApprover", value)}>
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="All" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueValues("reviewerApprover").map(value => (
+                          <SelectItem key={value} value={value}>{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[120px] pt-6">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('dueDate')}>
+                    Due Date
+                    {getSortIcon('dueDate')}
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[120px] pt-6">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('receivedDate')}>
+                    Received Date
+                    {getSortIcon('receivedDate')}
+                  </div>
+                </TableHead>
+                <TableHead className="font-semibold min-w-[120px] pt-6">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('daysUnderStatus')}>
+                    # of Days under Status
+                    {getSortIcon('daysUnderStatus')}
+                  </div>
+                </TableHead>
                 <TableHead className="font-semibold min-w-[140px] pt-6">
                   <div className="space-y-1">
                     <div className="flex items-center cursor-pointer" onClick={() => handleSort('frequency')}>
@@ -354,12 +410,6 @@ export const SubmissionTable = ({
                         ))}
                       </SelectContent>
                     </Select>
-                  </div>
-                </TableHead>
-                <TableHead className="font-semibold min-w-[120px] pt-6">
-                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('dueDate')}>
-                    Due Date
-                    {getSortIcon('dueDate')}
                   </div>
                 </TableHead>
                 <TableHead className="font-semibold min-w-[120px] pt-6">
@@ -417,56 +467,6 @@ export const SubmissionTable = ({
                         ))}
                       </SelectContent>
                     </Select>
-                  </div>
-                </TableHead>
-                <TableHead className="font-semibold min-w-[120px] pt-6">
-                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('receivedDate')}>
-                    Received Date
-                    {getSortIcon('receivedDate')}
-                  </div>
-                </TableHead>
-                <TableHead className="font-semibold min-w-[120px] pt-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('status')}>
-                      Status
-                      {getSortIcon('status')}
-                    </div>
-                    <Select value={columnFilters.status} onValueChange={(value) => updateColumnFilter("status", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("status").map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </TableHead>
-                <TableHead className="font-semibold min-w-[140px] pt-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('reviewerApprover')}>
-                      Reviewer/Approver
-                      {getSortIcon('reviewerApprover')}
-                    </div>
-                    <Select value={columnFilters.reviewerApprover} onValueChange={(value) => updateColumnFilter("reviewerApprover", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("reviewerApprover").map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </TableHead>
-                <TableHead className="font-semibold min-w-[120px] pt-6">
-                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('daysUnderStatus')}>
-                    # of Days under Status
-                    {getSortIcon('daysUnderStatus')}
                   </div>
                 </TableHead>
                 <TableHead className="font-semibold min-w-[200px] pt-6">
@@ -547,48 +547,48 @@ export const SubmissionTable = ({
                              {submission.reportType}
                            </button>
                          </TableCell>
-                        <TableCell>
-                          <span className="text-sm">{submission.frequency}</span>
-                        </TableCell>
-                        <TableCell>
-                          <div className="text-sm">
-                            {submission.dueDate}
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <span className="text-sm">{submission.period}</span>
-                        </TableCell>
-                        <TableCell>
-                          <span className="text-sm">{submission.leaseName}</span>
-                        </TableCell>
-                        <TableCell>
-                          <span className="text-sm">{submission.properties}</span>
-                        </TableCell>
-                        <TableCell>
-                          {submission.receivedDate ? (
-                            <div className="text-sm">
-                              {submission.receivedDate}
-                            </div>
-                          ) : (
-                            <span className="text-sm text-muted-foreground">-</span>
-                          )}
-                        </TableCell>
-                        <TableCell>
-                          <StatusBadge status={submission.status} />
-                        </TableCell>
-                        <TableCell>
-                          <span className="text-sm">{submission.reviewerApprover}</span>
-                        </TableCell>
-                        <TableCell>
-                          <span className="text-sm font-medium text-center">
-                            {submission.daysUnderStatus}
-                          </span>
-                        </TableCell>
-                        <TableCell>
-                          <div className="text-sm max-w-40 truncate">
-                            {submission.comments || "-"}
-                          </div>
-                        </TableCell>
+                         <TableCell>
+                           <StatusBadge status={submission.status} />
+                         </TableCell>
+                         <TableCell>
+                           <span className="text-sm">{submission.reviewerApprover}</span>
+                         </TableCell>
+                         <TableCell>
+                           <div className="text-sm">
+                             {submission.dueDate}
+                           </div>
+                         </TableCell>
+                         <TableCell>
+                           {submission.receivedDate ? (
+                             <div className="text-sm">
+                               {submission.receivedDate}
+                             </div>
+                           ) : (
+                             <span className="text-sm text-muted-foreground">-</span>
+                           )}
+                         </TableCell>
+                         <TableCell>
+                           <span className="text-sm font-medium text-center">
+                             {submission.daysUnderStatus}
+                           </span>
+                         </TableCell>
+                         <TableCell>
+                           <span className="text-sm">{submission.frequency}</span>
+                         </TableCell>
+                         <TableCell>
+                           <span className="text-sm">{submission.period}</span>
+                         </TableCell>
+                         <TableCell>
+                           <span className="text-sm">{submission.leaseName}</span>
+                         </TableCell>
+                         <TableCell>
+                           <span className="text-sm">{submission.properties}</span>
+                         </TableCell>
+                         <TableCell>
+                           <div className="text-sm max-w-40 truncate">
+                             {submission.comments || "-"}
+                           </div>
+                         </TableCell>
                       </TableRow>
                     ))
                   }
