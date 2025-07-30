@@ -250,26 +250,28 @@ export const SubmissionTable = ({
     <Card className="shadow-card">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold">Submissions</CardTitle>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={expandAllOperators}
-              className="h-8 px-3 text-xs"
-            >
-              <Expand className="h-3 w-3 mr-1" />
-              Expand All
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={collapseAllOperators}
-              className="h-8 px-3 text-xs"
-            >
-              <Minimize2 className="h-3 w-3 mr-1" />
-              Collapse All
-            </Button>
+          <div className="flex items-center gap-4">
+            <CardTitle className="text-lg font-semibold">Submissions</CardTitle>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={expandAllOperators}
+                className="h-8 px-3 text-xs"
+              >
+                <Expand className="h-3 w-3 mr-1" />
+                Expand All
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={collapseAllOperators}
+                className="h-8 px-3 text-xs"
+              >
+                <Minimize2 className="h-3 w-3 mr-1" />
+                Collapse All
+              </Button>
+            </div>
           </div>
         </div>
       </CardHeader>
