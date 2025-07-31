@@ -360,6 +360,15 @@ export const SubmissionTable = ({
               <Button
                 variant="outline"
                 size="sm"
+                onClick={clearAllFilters}
+                className="h-8 px-3 text-xs"
+              >
+                <X className="h-3 w-3 mr-1" />
+                Clear All Filters
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={expandAllOperators}
                 className="h-8 px-3 text-xs"
               >
@@ -378,15 +387,6 @@ export const SubmissionTable = ({
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={clearAllFilters}
-              className="h-8 px-3 text-xs"
-            >
-              <X className="h-3 w-3 mr-1" />
-              Clear All Filters
-            </Button>
             <Button
               variant="outline"
               size="sm"
