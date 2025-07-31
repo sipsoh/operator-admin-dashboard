@@ -39,7 +39,7 @@ const StatCard = ({ title, value, color, isActive, onClick, filterType }: StatCa
       <CardContent className="p-6">
         <div className="text-center">
           <p className="text-sm font-medium text-muted-foreground">{title}</p>
-          <p className="text-2xl font-bold mt-1" style={{ color: `hsl(var(--${color.replace('sabra-', 'sabra-')}))`}}>{value}</p>
+          <p className="text-2xl font-bold mt-1">{value}</p>
         </div>
       </CardContent>
     </Card>
