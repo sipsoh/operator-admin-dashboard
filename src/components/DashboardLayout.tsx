@@ -57,8 +57,8 @@ export const DashboardLayout = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-3">
-                <div className="w-16 h-12 flex items-center justify-center">
-                  <img src={sabraLogo} alt="Sabra Logo" className="h-12 w-auto max-w-full object-contain" />
+                <div className="w-24 h-15 flex items-center justify-center">
+                  <img src={sabraLogo} alt="Sabra Logo" className="h-15 w-24 object-contain" />
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-foreground">Operator Workflow</h1>
