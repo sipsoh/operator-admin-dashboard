@@ -82,19 +82,19 @@ export const DashboardStats = ({
     {
       title: "Total Submissions",
       value: stats.total,
-      color: "sabra-green" as const,
+      color: "primary" as const,
       filterType: "all"
     },
     {
       title: "Approved / Compliant",
       value: stats.approved,
-      color: "sabra-blue" as const,
+      color: "success" as const,
       filterType: "approved"
     },
     {
       title: "Pending Approval",
       value: stats.pending,
-      color: "sabra-orange" as const,
+      color: "warning" as const,
       filterType: "pending"
     },
     {
@@ -106,19 +106,19 @@ export const DashboardStats = ({
     {
       title: "Rejected",
       value: stats.submitted,
-      color: "sabra-red" as const,
+      color: "danger" as const,
       filterType: "submitted"
     },
     {
       title: "Non-Compliant",
       value: stats.nonCompliant,
-      color: "danger" as const,
+      color: "sabra-red" as const,
       filterType: "non-compliant"
     },
     {
       title: "Past Due",
       value: stats.overdue,
-      color: "sabra-red" as const,
+      color: "sabra-orange" as const,
       filterType: "overdue"
     }
   ];
