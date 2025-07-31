@@ -30,73 +30,73 @@ interface ReportTypeConfig {
 const reportTypeConfigs: Record<string, ReportTypeConfig> = {
   "Operating & Capital Budgets": {
     name: "Operating & Capital Budgets",
-    reportParty: ["Tenant", "Borrower", "Pref Equity", "Guarantor"],
+    reportParty: ["Borrower", "Guarantor", "Pref Equity", "Tenant"],
     frequency: ["Annual Budget"],
     defaultFrequency: "Annual Budget"
   },
   "Annual & Qtrly Financials": {
     name: "Annual & Qtrly Financials",
-    reportParty: ["Tenant", "Borrower", "Pref Equity", "Guarantor"],
+    reportParty: ["Borrower", "Guarantor", "Pref Equity", "Tenant"],
     frequency: ["Annual", "Quarterly"],
     defaultFrequency: "Annual"
   },
   "Cash Flow": {
     name: "Cash Flow",
-    reportParty: ["Tenant", "Borrower", "Pref Equity", "Guarantor"],
+    reportParty: ["Borrower", "Guarantor", "Pref Equity", "Tenant"],
     frequency: ["Annual", "Quarterly"],
     defaultFrequency: "Annual"
   },
   "Financial Covenant": {
     name: "Financial Covenant",
-    reportParty: ["Tenant", "Borrower", "Pref Equity", "Guarantor"],
+    reportParty: ["Borrower", "Guarantor", "Pref Equity", "Tenant"],
     frequency: ["Annual", "Quarterly"],
     defaultFrequency: "Annual"
   },
   "Insurance": {
     name: "Insurance",
-    reportParty: ["Tenant", "Borrower", "Pref Equity", "Guarantor"],
+    reportParty: ["Borrower", "Guarantor", "Pref Equity", "Tenant"],
     frequency: ["Annual"],
     defaultFrequency: "Annual"
   },
   "Other Financial Reports": {
     name: "Other Financial Reports",
-    reportParty: ["Tenant", "Borrower", "Pref Equity", "Guarantor"],
+    reportParty: ["Borrower", "Guarantor", "Pref Equity", "Tenant"],
     frequency: ["Annual"],
     defaultFrequency: "Annual"
   },
   "Percentage Rent Calculation": {
     name: "Percentage Rent Calculation",
-    reportParty: ["Tenant", "Borrower", "Pref Equity", "Guarantor"],
+    reportParty: ["Borrower", "Guarantor", "Pref Equity", "Tenant"],
     frequency: ["Annual", "Quarterly"],
     defaultFrequency: "Quarterly"
   },
   "Capital Expenditures Reports": {
     name: "Capital Expenditures Reports",
-    reportParty: ["Tenant", "Borrower", "Pref Equity", "Guarantor"],
+    reportParty: ["Borrower", "Guarantor", "Pref Equity", "Tenant"],
     frequency: ["Annual"],
     defaultFrequency: "Annual"
   },
   "Competitor Rate Surveys": {
     name: "Competitor Rate Surveys",
-    reportParty: ["Tenant", "Borrower", "Pref Equity", "Guarantor"],
+    reportParty: ["Borrower", "Guarantor", "Pref Equity", "Tenant"],
     frequency: ["Quarterly"],
     defaultFrequency: "Quarterly"
   },
   "Insurance Reports": {
     name: "Insurance Reports",
-    reportParty: ["Tenant", "Borrower", "Pref Equity", "Guarantor"],
+    reportParty: ["Borrower", "Guarantor", "Pref Equity", "Tenant"],
     frequency: ["Annual"],
     defaultFrequency: "Annual"
   },
   "Operating Licenses": {
     name: "Operating Licenses",
-    reportParty: ["Tenant", "Borrower", "Pref Equity", "Guarantor"],
+    reportParty: ["Borrower", "Guarantor", "Pref Equity", "Tenant"],
     frequency: ["Upon Expiration"],
     defaultFrequency: "Upon Expiration"
   },
   "Tax Returns": {
     name: "Tax Returns",
-    reportParty: ["Tenant", "Borrower", "Pref Equity", "Guarantor"],
+    reportParty: ["Borrower", "Guarantor", "Pref Equity", "Tenant"],
     frequency: ["Annual"],
     defaultFrequency: "Annual"
   }
