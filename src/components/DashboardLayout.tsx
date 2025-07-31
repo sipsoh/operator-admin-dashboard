@@ -4,6 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import sabraLogo from "@/assets/sabra-logo.png";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { NewEntryDialog } from "./NewEntryDialog";
+import { useState } from "react";
+import { Submission } from "@/lib/data";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -13,6 +16,7 @@ interface DashboardLayoutProps {
   onReportTypeChange: (value: string) => void;
   onDateRangeChange: (value: string) => void;
   onSearchChange?: (query: string) => void;
+  onNewEntry?: (entry: Omit<Submission, 'id'>) => void;
 }
 
 export const DashboardLayout = ({ 
@@ -22,8 +26,10 @@ export const DashboardLayout = ({
   searchQuery = "",
   onReportTypeChange, 
   onDateRangeChange,
-  onSearchChange 
+  onSearchChange,
+  onNewEntry
 }: DashboardLayoutProps) => {
+  const [newEntryOpen, setNewEntryOpen] = useState(false);
   const reportTypes = [
     { value: "all", label: "All Report Types" },
     { value: "monthly-financial", label: "Monthly Financial" },
@@ -77,7 +83,11 @@ export const DashboardLayout = ({
                 Export
               </Button>
               
-              <Button size="sm" className="bg-primary hover:bg-primary/90">
+              <Button 
+                size="sm" 
+                className="bg-primary hover:bg-primary/90"
+                onClick={() => setNewEntryOpen(true)}
+              >
                 <Plus className="h-4 w-4 mr-2" />
                 New Entry
               </Button>
@@ -91,6 +101,16 @@ export const DashboardLayout = ({
       <main className="p-6">
         {children}
       </main>
+
+      {/* New Entry Dialog */}
+      <NewEntryDialog
+        open={newEntryOpen}
+        onOpenChange={setNewEntryOpen}
+        onEntryCreate={(entry) => {
+          onNewEntry?.(entry);
+          setNewEntryOpen(false);
+        }}
+      />
     </div>
   );
 };

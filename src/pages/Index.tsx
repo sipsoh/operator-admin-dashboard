@@ -8,6 +8,7 @@ const Index = () => {
   const [reportType, setReportType] = useState("all");
   const [dateRange, setDateRange] = useState("month");
   const [searchQuery, setSearchQuery] = useState("");
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const handleFilterChange = (filter: string) => {
     setActiveFilter(filter);
@@ -25,6 +26,11 @@ const Index = () => {
     setSearchQuery(query);
   };
 
+  const handleNewEntry = () => {
+    // Trigger refresh of components that use mock data
+    setRefreshTrigger(prev => prev + 1);
+  };
+
   return (
     <DashboardLayout
       reportType={reportType}
@@ -33,6 +39,7 @@ const Index = () => {
       onReportTypeChange={handleReportTypeChange}
       onDateRangeChange={handleDateRangeChange}
       onSearchChange={handleSearchChange}
+      onNewEntry={handleNewEntry}
     >
       <div className="space-y-8">
         {/* Dashboard Statistics */}
@@ -51,6 +58,7 @@ const Index = () => {
             reportTypeFilter={reportType}
             dateRangeFilter={dateRange}
             searchQuery={searchQuery}
+            key={refreshTrigger}
           />
         </div>
       </div>
