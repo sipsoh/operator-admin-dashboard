@@ -6,6 +6,7 @@ import { StatusBadge, Status } from "./StatusBadge";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { FutureTasksDialog } from "./FutureTasksDialog";
 
 interface EditStatusDialogProps {
   submissionId: string | null;
@@ -24,6 +25,7 @@ export const EditStatusDialog = ({
 }: EditStatusDialogProps) => {
   const [newStatus, setNewStatus] = useState<Status | "">("");
   const [reason, setReason] = useState("");
+  const [futureTasksOpen, setFutureTasksOpen] = useState(false);
   const { toast } = useToast();
 
   const statusOptions: { value: Status; label: string }[] = [
@@ -109,7 +111,11 @@ export const EditStatusDialog = ({
           </div>
           
           <div className="flex justify-between pt-4">
-            <Button variant="outline" className="text-primary border-primary">
+            <Button 
+              variant="outline" 
+              className="text-primary border-primary"
+              onClick={() => setFutureTasksOpen(true)}
+            >
               Future Tasks
             </Button>
             <div className="flex space-x-2">
@@ -122,6 +128,12 @@ export const EditStatusDialog = ({
             </div>
           </div>
         </div>
+
+        <FutureTasksDialog
+          submissionId={submissionId}
+          open={futureTasksOpen}
+          onOpenChange={setFutureTasksOpen}
+        />
       </DialogContent>
     </Dialog>
   );

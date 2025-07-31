@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { StatusBadge, Status } from "./StatusBadge";
-import { MoreHorizontal, Eye, Edit, MessageSquare, Calendar, Building, User, ChevronDown, ChevronRight, Filter, X, ArrowUpDown, ArrowUp, ArrowDown, Expand, Minimize2 } from "lucide-react";
+import { MoreHorizontal, Eye, Edit, MessageSquare, Calendar, Building, User, ChevronDown, ChevronRight, Filter, X, ArrowUpDown, ArrowUp, ArrowDown, Expand, Minimize2, Archive, RefreshCw } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ViewDetailsDialog } from "./ViewDetailsDialog";
 import { EditStatusDialog } from "./EditStatusDialog";
 import { AddCommentDialog } from "./AddCommentDialog";
+import { ArchivedWorkflowsDialog } from "./ArchivedWorkflowsDialog";
 import { useToast } from "@/hooks/use-toast";
 import { mockData, filterSubmissions, type Submission } from "@/lib/data";
+import { simulateBPCRefresh } from "@/lib/mockBackend";
 
 // Using mockData from shared lib
 
@@ -38,11 +40,24 @@ export const SubmissionTable = ({
   const [viewDetailsOpen, setViewDetailsOpen] = useState(false);
   const [editStatusOpen, setEditStatusOpen] = useState(false);
   const [addCommentOpen, setAddCommentOpen] = useState(false);
+  const [archivedWorkflowsOpen, setArchivedWorkflowsOpen] = useState(false);
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
   const { toast } = useToast();
 
   // Mock data with state - in real app this would come from a state management system
   const [submissions, setSubmissions] = useState<Submission[]>(mockData);
+
+  // Simulate BPC refresh on component mount
+  useEffect(() => {
+    const refreshedData = simulateBPCRefresh([...mockData]);
+    setSubmissions(refreshedData);
+    
+    toast({
+      title: "📊 BPC Data Refreshed",
+      description: "Relationship columns updated based on current BPC Admin data",
+      duration: 5000,
+    });
+  }, [toast]);
 
   // Column filters state
   const [columnFilters, setColumnFilters] = useState({
@@ -363,8 +378,10 @@ export const SubmissionTable = ({
             <Button
               variant="outline"
               size="sm"
+              onClick={() => setArchivedWorkflowsOpen(true)}
               className="h-8 px-3 text-xs text-primary border-primary"
             >
+              <Archive className="h-3 w-3 mr-1" />
               Archived Workflows
             </Button>
           </div>
@@ -851,13 +868,18 @@ export const SubmissionTable = ({
          onStatusUpdate={handleStatusUpdate}
        />
        
-       <AddCommentDialog
-         submissionId={selectedSubmission?.id || null}
-         operatorName={selectedSubmission?.operator || null}
-         open={addCommentOpen}
-         onOpenChange={setAddCommentOpen}
-         onCommentAdd={handleCommentAdd}
-       />
-     </Card>
-   );
- };
+        <AddCommentDialog
+          submissionId={selectedSubmission?.id || null}
+          operatorName={selectedSubmission?.operator || null}
+          open={addCommentOpen}
+          onOpenChange={setAddCommentOpen}
+          onCommentAdd={handleCommentAdd}
+        />
+
+        <ArchivedWorkflowsDialog
+          open={archivedWorkflowsOpen}
+          onOpenChange={setArchivedWorkflowsOpen}
+        />
+      </Card>
+    );
+  };
