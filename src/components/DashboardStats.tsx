@@ -1,3 +1,4 @@
+import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { mockData, calculateStats } from "@/lib/data";
@@ -51,6 +52,7 @@ interface DashboardStatsProps {
   searchQuery?: string;
   reportTypeFilter?: string;
   dateRangeFilter?: string;
+  isArchivedView?: boolean;
 }
 
 export const DashboardStats = ({ 
@@ -58,9 +60,23 @@ export const DashboardStats = ({
   onFilterChange, 
   searchQuery = "",
   reportTypeFilter = "all",
-  dateRangeFilter = "all"
+  dateRangeFilter = "all",
+  isArchivedView = false
 }: DashboardStatsProps) => {
-  const stats = calculateStats(mockData, { searchQuery, reportTypeFilter, dateRangeFilter });
+  // Use archived data if in archived view
+  const [dataSource, setDataSource] = React.useState(mockData);
+  
+  React.useEffect(() => {
+    if (isArchivedView) {
+      import("@/lib/mockBackend").then(({ mockArchivedWorkflows }) => {
+        setDataSource(mockArchivedWorkflows);
+      });
+    } else {
+      setDataSource(mockData);
+    }
+  }, [isArchivedView]);
+
+  const stats = calculateStats(dataSource, { searchQuery, reportTypeFilter, dateRangeFilter });
   
   const statCards = [
     {

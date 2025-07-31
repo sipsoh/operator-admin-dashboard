@@ -16,6 +16,7 @@ interface DashboardLayoutProps {
   onDateRangeChange: (value: string) => void;
   onSearchChange?: (query: string) => void;
   onNewEntry?: (entry: Omit<Submission, 'id'>) => void;
+  isArchivedView?: boolean;
 }
 
 export const DashboardLayout = ({ 
@@ -26,7 +27,8 @@ export const DashboardLayout = ({
   onReportTypeChange, 
   onDateRangeChange,
   onSearchChange,
-  onNewEntry
+  onNewEntry,
+  isArchivedView = false
 }: DashboardLayoutProps) => {
   const [newEntryOpen, setNewEntryOpen] = useState(false);
   const reportTypes = [
@@ -82,14 +84,16 @@ export const DashboardLayout = ({
                 Export
               </Button>
               
-              <Button 
-                size="sm" 
-                className="bg-primary hover:bg-primary/90"
-                onClick={() => setNewEntryOpen(true)}
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                New Entry
-              </Button>
+              {!isArchivedView && (
+                <Button 
+                  size="sm" 
+                  className="bg-primary hover:bg-primary/90"
+                  onClick={() => setNewEntryOpen(true)}
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  New Entry
+                </Button>
+              )}
               
             </div>
           </div>

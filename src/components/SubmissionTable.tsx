@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
@@ -10,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ViewDetailsDialog } from "./ViewDetailsDialog";
 import { EditStatusDialog } from "./EditStatusDialog";
 import { AddCommentDialog } from "./AddCommentDialog";
-import { ArchivedWorkflowsDialog } from "./ArchivedWorkflowsDialog";
+
 import { useToast } from "@/hooks/use-toast";
 import { mockData, filterSubmissions, type Submission } from "@/lib/data";
 import { simulateBPCRefresh } from "@/lib/mockBackend";
@@ -28,30 +29,40 @@ interface SubmissionTableProps {
   reportTypeFilter?: string;
   dateRangeFilter?: string;
   searchQuery?: string;
+  isArchivedView?: boolean;
 }
 
 export const SubmissionTable = ({ 
   statusFilter = "all", 
   reportTypeFilter = "all", 
   dateRangeFilter = "all",
-  searchQuery = ""
+  searchQuery = "",
+  isArchivedView = false
 }: SubmissionTableProps) => {
+  const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [viewDetailsOpen, setViewDetailsOpen] = useState(false);
   const [editStatusOpen, setEditStatusOpen] = useState(false);
   const [addCommentOpen, setAddCommentOpen] = useState(false);
-  const [archivedWorkflowsOpen, setArchivedWorkflowsOpen] = useState(false);
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
   const { toast } = useToast();
 
   // Mock data with state - in real app this would come from a state management system
-  const [submissions, setSubmissions] = useState<Submission[]>(mockData);
+  const [submissions, setSubmissions] = useState<Submission[]>(
+    isArchivedView ? [] : mockData
+  );
 
-  // Simulate BPC refresh on component mount (silent refresh)
+  // Load appropriate data based on view type
   useEffect(() => {
-    const refreshedData = simulateBPCRefresh([...mockData]);
-    setSubmissions(refreshedData);
-  }, []);
+    if (isArchivedView) {
+      import("@/lib/mockBackend").then(({ mockArchivedWorkflows }) => {
+        setSubmissions(mockArchivedWorkflows);
+      });
+    } else {
+      const refreshedData = simulateBPCRefresh([...mockData]);
+      setSubmissions(refreshedData);
+    }
+  }, [isArchivedView]);
 
   // Column filters state
   const [columnFilters, setColumnFilters] = useState({
@@ -386,17 +397,19 @@ export const SubmissionTable = ({
               </Button>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setArchivedWorkflowsOpen(true)}
-              className="h-8 px-3 text-xs text-primary border-primary"
-            >
-              <Archive className="h-3 w-3 mr-1" />
-              Archived Workflows
-            </Button>
-          </div>
+          {!isArchivedView && (
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/archived-workflows')}
+                className="h-8 px-3 text-xs text-primary border-primary"
+              >
+                <Archive className="h-3 w-3 mr-1" />
+                Archived Workflows
+              </Button>
+            </div>
+          )}
         </div>
       </CardHeader>
       <CardContent className="p-0">
@@ -901,10 +914,6 @@ export const SubmissionTable = ({
           onCommentAdd={handleCommentAdd}
         />
 
-        <ArchivedWorkflowsDialog
-          open={archivedWorkflowsOpen}
-          onOpenChange={setArchivedWorkflowsOpen}
-        />
       </Card>
     );
   };
