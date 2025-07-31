@@ -372,6 +372,15 @@ export const SubmissionTable = ({
             <Button
               variant="outline"
               size="sm"
+              onClick={clearAllFilters}
+              className="h-8 px-3 text-xs"
+            >
+              <X className="h-3 w-3 mr-1" />
+              Clear All Filters
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
               onClick={() => setArchivedWorkflowsOpen(true)}
               className="h-8 px-3 text-xs text-primary border-primary"
             >
