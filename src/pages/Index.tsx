@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { DashboardStats } from "@/components/DashboardStats";
 import { SubmissionTable } from "@/components/SubmissionTable";
-import { ReminderSystem } from "@/components/ReminderSystem";
 
 const Index = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -27,9 +26,7 @@ const Index = () => {
   };
 
   return (
-    <>
-      <ReminderSystem />
-      <DashboardLayout
+    <DashboardLayout
       reportType={reportType}
       dateRange={dateRange}
       searchQuery={searchQuery}
@@ -57,8 +54,7 @@ const Index = () => {
           />
         </div>
       </div>
-      </DashboardLayout>
-    </>
+    </DashboardLayout>
   );
 };
 
