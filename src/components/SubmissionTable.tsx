@@ -69,6 +69,7 @@ export const SubmissionTable = ({
     operator: "all",
     category: "all",
     reportType: "all", 
+    reportParty: "all",
     frequency: "all",
     period: "all",
     leaseName: "all",
@@ -161,6 +162,7 @@ export const SubmissionTable = ({
       operator: "all",
       category: "all",
       reportType: "all", 
+      reportParty: "all",
       frequency: "all",
       period: "all",
       leaseName: "all",
@@ -230,6 +232,7 @@ export const SubmissionTable = ({
     if (columnFilters.operator !== "all" && submission.operator !== columnFilters.operator) return false;
     if (columnFilters.category !== "all" && submission.category !== columnFilters.category) return false;
     if (columnFilters.reportType !== "all" && submission.reportType !== columnFilters.reportType) return false;
+    if (columnFilters.reportParty !== "all" && (submission as any).reportParty !== columnFilters.reportParty) return false;
     
     if (columnFilters.frequency !== "all" && submission.frequency !== columnFilters.frequency) return false;
     if (columnFilters.period !== "all" && submission.period !== columnFilters.period) return false;
@@ -438,6 +441,12 @@ export const SubmissionTable = ({
                     {getSortIconWhite('reportType')}
                   </div>
                 </TableHead>
+                <TableHead className="min-w-[180px] sticky left-[592px] bg-blue-600 z-30 border-r border-blue-500 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('reportParty')}>
+                    Report Party
+                    {getSortIconWhite('reportParty')}
+                  </div>
+                </TableHead>
                 <TableHead className="min-w-[120px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('status')}>
                     Status
@@ -567,19 +576,32 @@ export const SubmissionTable = ({
                     </SelectContent>
                   </Select>
                 </TableHead>
-                <TableHead className="min-w-[120px] py-2">
-                  <Select value={columnFilters.status} onValueChange={(value) => updateColumnFilter("status", value)}>
+                <TableHead className="min-w-[180px] py-2 sticky left-[592px] bg-muted/30 z-30 border-r border-border">
+                  <Select value={columnFilters.reportParty || "all"} onValueChange={(value) => updateColumnFilter("reportParty", value)}>
                     <SelectTrigger className="h-7 text-xs">
                       <SelectValue placeholder="All" />
                     </SelectTrigger>
                     <SelectContent className="bg-background border border-border z-50">
                       <SelectItem value="all">All</SelectItem>
-                      {getUniqueValues("status").map(value => (
+                      {getUniqueValues("reportParty").map(value => (
                         <SelectItem key={value} value={value}>{value}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
-                </TableHead>
+                 </TableHead>
+                 <TableHead className="min-w-[120px] py-2">
+                   <Select value={columnFilters.status} onValueChange={(value) => updateColumnFilter("status", value)}>
+                     <SelectTrigger className="h-7 text-xs">
+                       <SelectValue placeholder="All" />
+                     </SelectTrigger>
+                     <SelectContent className="bg-background border border-border z-50">
+                       <SelectItem value="all">All</SelectItem>
+                       {getUniqueValues("status").map(value => (
+                         <SelectItem key={value} value={value}>{value}</SelectItem>
+                       ))}
+                     </SelectContent>
+                   </Select>
+                 </TableHead>
                 <TableHead className="min-w-[140px] py-2">
                   <Select value={columnFilters.reviewerApprover} onValueChange={(value) => updateColumnFilter("reviewerApprover", value)}>
                     <SelectTrigger className="h-7 text-xs">
@@ -766,7 +788,7 @@ export const SubmissionTable = ({
                     className="bg-muted/50 border-b-2 border-border cursor-pointer hover:bg-muted/70 transition-colors"
                     onClick={() => toggleOperator(operator)}
                   >
-                    <TableCell colSpan={19} className="py-3 px-4">
+                    <TableCell colSpan={20} className="py-3 px-4">
                       <div className="flex items-center space-x-2">
                         {expandedOperators.has(operator) ? (
                           <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform" />
@@ -826,10 +848,13 @@ export const SubmissionTable = ({
                            >
                              {submission.reportType}
                            </button>
-                         </TableCell>
-                         <TableCell>
-                           <StatusBadge status={submission.status} />
-                         </TableCell>
+                          </TableCell>
+                          <TableCell className="sticky left-[592px] bg-card z-20 border-r border-border">
+                            <span className="text-sm">{(submission as any).reportParty || "-"}</span>
+                          </TableCell>
+                          <TableCell>
+                            <StatusBadge status={submission.status} />
+                          </TableCell>
                          <TableCell>
                            <span className="text-sm">{submission.reviewerApprover}</span>
                          </TableCell>
