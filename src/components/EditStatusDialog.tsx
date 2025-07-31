@@ -108,13 +108,18 @@ export const EditStatusDialog = ({
             />
           </div>
           
-          <div className="flex justify-end space-x-2 pt-4">
-            <Button variant="outline" onClick={handleCancel}>
-              Cancel
+          <div className="flex justify-between pt-4">
+            <Button variant="outline" className="text-primary border-primary">
+              Future Tasks
             </Button>
-            <Button onClick={handleSubmit}>
-              Update Status
-            </Button>
+            <div className="flex space-x-2">
+              <Button variant="outline" onClick={handleCancel}>
+                Cancel
+              </Button>
+              <Button onClick={handleSubmit}>
+                Update Status
+              </Button>
+            </div>
           </div>
         </div>
       </DialogContent>

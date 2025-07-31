@@ -53,6 +53,14 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				/* Sabra Brand Colors */
+				sabra: {
+					green: 'hsl(var(--sabra-green))',
+					blue: 'hsl(var(--sabra-blue))',
+					red: 'hsl(var(--sabra-red))',
+					orange: 'hsl(var(--sabra-orange))',
+					purple: 'hsl(var(--sabra-purple))'
+				},
 				/* Dashboard Status Colors */
 				success: {
 					DEFAULT: 'hsl(var(--success))',

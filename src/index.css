@@ -21,6 +21,13 @@
     --primary-foreground: 0 0% 100%;
     --primary-glow: 221 83% 75%;
 
+    /* Sabra Brand Colors */
+    --sabra-green: 142 76% 36%;
+    --sabra-blue: 217 91% 60%;
+    --sabra-red: 0 84% 60%;
+    --sabra-orange: 38 92% 50%;
+    --sabra-purple: 262 83% 58%;
+
     /* Status Colors */
     --success: 142 76% 36%;
     --success-foreground: 0 0% 100%;

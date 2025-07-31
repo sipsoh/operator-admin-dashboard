@@ -58,7 +58,11 @@ export const SubmissionTable = ({
     assetManager: "all",
     invManager: "all",
     leaseAdmin: "all",
-    invAssociate: "all"
+    invAssociate: "all",
+    dueDateYear: "all",
+    dueDateMonth: "all",
+    submittedDateYear: "all",
+    submittedDateMonth: "all"
   });
 
   // Sorting state
@@ -71,6 +75,58 @@ export const SubmissionTable = ({
   const getUniqueValues = (field: keyof Submission) => {
     const values = [...new Set(submissions.map(sub => sub[field] as string))];
     return values.filter(value => value && value.trim() !== "").sort();
+  };
+
+  // Get unique years and months from dates
+  const getUniqueYears = (dateField: 'dueDate' | 'receivedDate') => {
+    const years = [...new Set(submissions
+      .map(sub => sub[dateField])
+      .filter(date => date && date.trim() !== "")
+      .map(date => new Date(date).getFullYear().toString())
+    )];
+    return years.sort();
+  };
+
+  const getUniqueMonths = (dateField: 'dueDate' | 'receivedDate', year?: string) => {
+    const months = [...new Set(submissions
+      .map(sub => sub[dateField])
+      .filter(date => date && date.trim() !== "")
+      .filter(date => !year || new Date(date).getFullYear().toString() === year)
+      .map(date => {
+        const d = new Date(date);
+        return d.toLocaleDateString('en-US', { month: 'short' });
+      })
+    )];
+    return months.sort();
+  };
+
+  // Get dynamic period options based on frequency
+  const getDynamicPeriodOptions = () => {
+    const selectedFrequency = columnFilters.frequency;
+    
+    if (selectedFrequency === "all") {
+      return getUniqueValues("period");
+    }
+    
+    if (selectedFrequency === "Annual") {
+      return ["2025", "2024", "2023", "2022", "2021"];
+    }
+    
+    if (selectedFrequency === "Quarterly") {
+      const currentYear = new Date().getFullYear();
+      const years = [currentYear, currentYear - 1, currentYear - 2];
+      const quarters = ["Q1", "Q2", "Q3", "Q4"];
+      return years.flatMap(year => quarters.map(q => `${year} ${q}`));
+    }
+    
+    if (selectedFrequency === "Monthly") {
+      const currentYear = new Date().getFullYear();
+      const years = [currentYear, currentYear - 1];
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      return years.flatMap(year => months.map(month => `${year} ${month}`));
+    }
+    
+    return getUniqueValues("period");
   };
 
   const updateColumnFilter = (column: string, value: string) => {
@@ -94,7 +150,11 @@ export const SubmissionTable = ({
       assetManager: "all",
       invManager: "all",
       leaseAdmin: "all",
-      invAssociate: "all"
+      invAssociate: "all",
+      dueDateYear: "all",
+      dueDateMonth: "all",
+      submittedDateYear: "all",
+      submittedDateMonth: "all"
     });
   };
 
@@ -152,6 +212,20 @@ export const SubmissionTable = ({
     if (columnFilters.invManager !== "all" && submission.invManager !== columnFilters.invManager) return false;
     if (columnFilters.leaseAdmin !== "all" && submission.leaseAdmin !== columnFilters.leaseAdmin) return false;
     if (columnFilters.invAssociate !== "all" && submission.invAssociate !== columnFilters.invAssociate) return false;
+    
+    // Date filters
+    if (columnFilters.dueDateYear !== "all" || columnFilters.dueDateMonth !== "all") {
+      const dueDate = new Date(submission.dueDate);
+      if (columnFilters.dueDateYear !== "all" && dueDate.getFullYear().toString() !== columnFilters.dueDateYear) return false;
+      if (columnFilters.dueDateMonth !== "all" && dueDate.toLocaleDateString('en-US', { month: 'short' }) !== columnFilters.dueDateMonth) return false;
+    }
+    
+    if (columnFilters.submittedDateYear !== "all" || columnFilters.submittedDateMonth !== "all") {
+      if (!submission.receivedDate) return false;
+      const submittedDate = new Date(submission.receivedDate);
+      if (columnFilters.submittedDateYear !== "all" && submittedDate.getFullYear().toString() !== columnFilters.submittedDateYear) return false;
+      if (columnFilters.submittedDateMonth !== "all" && submittedDate.toLocaleDateString('en-US', { month: 'short' }) !== columnFilters.submittedDateMonth) return false;
+    }
     
     return true;
   }).sort((a, b) => {
@@ -285,6 +359,15 @@ export const SubmissionTable = ({
               </Button>
             </div>
           </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-8 px-3 text-xs text-primary border-primary"
+            >
+              Archived Workflows
+            </Button>
+          </div>
         </div>
       </CardHeader>
       <CardContent className="p-0">
@@ -390,15 +473,67 @@ export const SubmissionTable = ({
                   </div>
                 </TableHead>
                 <TableHead className="font-semibold min-w-[120px] pt-6">
-                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('dueDate')}>
-                    Due Date
-                    {getSortIcon('dueDate')}
+                  <div className="space-y-1">
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('dueDate')}>
+                      Due Date
+                      {getSortIcon('dueDate')}
+                    </div>
+                    <div className="flex gap-1">
+                      <Select value={columnFilters.dueDateYear} onValueChange={(value) => updateColumnFilter("dueDateYear", value)}>
+                        <SelectTrigger className="h-6 text-xs flex-1">
+                          <SelectValue placeholder="Year" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">All Years</SelectItem>
+                          {getUniqueYears("dueDate").map(year => (
+                            <SelectItem key={year} value={year}>{year}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <Select value={columnFilters.dueDateMonth} onValueChange={(value) => updateColumnFilter("dueDateMonth", value)}>
+                        <SelectTrigger className="h-6 text-xs flex-1">
+                          <SelectValue placeholder="Mon" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">All</SelectItem>
+                          {getUniqueMonths("dueDate", columnFilters.dueDateYear !== "all" ? columnFilters.dueDateYear : undefined).map(month => (
+                            <SelectItem key={month} value={month}>{month}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
                 </TableHead>
                 <TableHead className="font-semibold min-w-[120px] pt-6">
-                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('receivedDate')}>
-                    Received Date
-                    {getSortIcon('receivedDate')}
+                  <div className="space-y-1">
+                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('receivedDate')}>
+                      Submitted Date
+                      {getSortIcon('receivedDate')}
+                    </div>
+                    <div className="flex gap-1">
+                      <Select value={columnFilters.submittedDateYear} onValueChange={(value) => updateColumnFilter("submittedDateYear", value)}>
+                        <SelectTrigger className="h-6 text-xs flex-1">
+                          <SelectValue placeholder="Year" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">All Years</SelectItem>
+                          {getUniqueYears("receivedDate").map(year => (
+                            <SelectItem key={year} value={year}>{year}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <Select value={columnFilters.submittedDateMonth} onValueChange={(value) => updateColumnFilter("submittedDateMonth", value)}>
+                        <SelectTrigger className="h-6 text-xs flex-1">
+                          <SelectValue placeholder="Mon" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">All</SelectItem>
+                          {getUniqueMonths("receivedDate", columnFilters.submittedDateYear !== "all" ? columnFilters.submittedDateYear : undefined).map(month => (
+                            <SelectItem key={month} value={month}>{month}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
                 </TableHead>
                 <TableHead className="font-semibold min-w-[120px] pt-6">
@@ -438,7 +573,7 @@ export const SubmissionTable = ({
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("period").map(value => (
+                        {getDynamicPeriodOptions().map(value => (
                           <SelectItem key={value} value={value}>{value}</SelectItem>
                         ))}
                       </SelectContent>
