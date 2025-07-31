@@ -47,17 +47,11 @@ export const SubmissionTable = ({
   // Mock data with state - in real app this would come from a state management system
   const [submissions, setSubmissions] = useState<Submission[]>(mockData);
 
-  // Simulate BPC refresh on component mount
+  // Simulate BPC refresh on component mount (silent refresh)
   useEffect(() => {
     const refreshedData = simulateBPCRefresh([...mockData]);
     setSubmissions(refreshedData);
-    
-    toast({
-      title: "📊 BPC Data Refreshed",
-      description: "Relationship columns updated based on current BPC Admin data",
-      duration: 5000,
-    });
-  }, [toast]);
+  }, []);
 
   // Column filters state
   const [columnFilters, setColumnFilters] = useState({
