@@ -2,7 +2,6 @@ import { Search, Bell, Settings, Filter, Download, Plus, Calendar } from "lucide
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import sabraLogo from "@/assets/sabra-logo.png";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { NewEntryDialog } from "./NewEntryDialog";
 import { useState } from "react";
@@ -58,7 +57,7 @@ export const DashboardLayout = ({
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-3">
                 <div className="w-24 h-15 flex items-center justify-center">
-                  <img src={sabraLogo} alt="Sabra Logo" className="h-15 w-24 object-contain" />
+                  <img src="/lovable-uploads/c9268e20-7576-4387-9021-12bb2c82903b.png" alt="Sabra Logo" className="h-15 w-24 object-contain" />
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-foreground">Operator Workflow</h1>
