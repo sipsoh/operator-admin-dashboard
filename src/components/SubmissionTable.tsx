@@ -183,6 +183,15 @@ export const SubmissionTable = ({
       : <ArrowDown className="h-3 w-3 ml-1 text-primary" />;
   };
 
+  const getSortIconWhite = (key: keyof Submission) => {
+    if (sortConfig.key !== key) {
+      return <ArrowUpDown className="h-3 w-3 ml-1 text-white/70" />;
+    }
+    return sortConfig.direction === 'asc' 
+      ? <ArrowUp className="h-3 w-3 ml-1 text-white" />
+      : <ArrowDown className="h-3 w-3 ml-1 text-white" />;
+  };
+
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString('en-US', {
       month: 'short',
@@ -401,103 +410,103 @@ export const SubmissionTable = ({
                 <TableHead className="min-w-[200px] sticky left-12 bg-blue-600 z-30 border-r border-blue-500 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('operator')}>
                     Operator
-                    {getSortIcon('operator')}
+                    {getSortIconWhite('operator')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[180px] sticky left-[212px] bg-blue-600 z-30 border-r border-blue-500 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('category')}>
                     Category
-                    {getSortIcon('category')}
+                    {getSortIconWhite('category')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[200px] sticky left-[392px] bg-blue-600 z-30 border-r border-blue-500 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('reportType')}>
                     Report Type
-                    {getSortIcon('reportType')}
+                    {getSortIconWhite('reportType')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[120px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('status')}>
                     Status
-                    {getSortIcon('status')}
+                    {getSortIconWhite('status')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[140px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('reviewerApprover')}>
                     Reviewer/Approver
-                    {getSortIcon('reviewerApprover')}
+                    {getSortIconWhite('reviewerApprover')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[120px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('dueDate')}>
                     Due Date
-                    {getSortIcon('dueDate')}
+                    {getSortIconWhite('dueDate')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[120px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('receivedDate')}>
                     Submitted Date
-                    {getSortIcon('receivedDate')}
+                    {getSortIconWhite('receivedDate')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[120px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('daysUnderStatus')}>
                     # of Days under Status
-                    {getSortIcon('daysUnderStatus')}
+                    {getSortIconWhite('daysUnderStatus')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[140px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('frequency')}>
                     Frequency
-                    {getSortIcon('frequency')}
+                    {getSortIconWhite('frequency')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[120px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('period')}>
                     Period
-                    {getSortIcon('period')}
+                    {getSortIconWhite('period')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[180px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('leaseName')}>
                     Lease Name
-                    {getSortIcon('leaseName')}
+                    {getSortIconWhite('leaseName')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[140px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('properties')}>
                     Properties
-                    {getSortIcon('properties')}
+                    {getSortIconWhite('properties')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[140px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('assetManager')}>
                     Asset Manager
-                    {getSortIcon('assetManager')}
+                    {getSortIconWhite('assetManager')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[140px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('invManager')}>
                     Investment Manager
-                    {getSortIcon('invManager')}
+                    {getSortIconWhite('invManager')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[140px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('leaseAdmin')}>
                     Lease Admin
-                    {getSortIcon('leaseAdmin')}
+                    {getSortIconWhite('leaseAdmin')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[140px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('invAssociate')}>
                     Investment Associate
-                    {getSortIcon('invAssociate')}
+                    {getSortIconWhite('invAssociate')}
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[200px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('comments')}>
                     Comments
-                    {getSortIcon('comments')}
+                    {getSortIconWhite('comments')}
                   </div>
                 </TableHead>
               </TableRow>
