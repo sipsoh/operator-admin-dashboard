@@ -651,7 +651,7 @@ export const SubmissionTable = ({
                 <TableHead className="font-semibold min-w-[140px] pt-6">
                   <div className="space-y-1">
                     <div className="flex items-center cursor-pointer" onClick={() => handleSort('invManager')}>
-                      INV Manager
+                      Investment Manager
                       {getSortIcon('invManager')}
                     </div>
                     <Select value={columnFilters.invManager} onValueChange={(value) => updateColumnFilter("invManager", value)}>
@@ -689,7 +689,7 @@ export const SubmissionTable = ({
                 <TableHead className="font-semibold min-w-[140px] pt-6">
                   <div className="space-y-1">
                     <div className="flex items-center cursor-pointer" onClick={() => handleSort('invAssociate')}>
-                      INV Associate
+                      Investment Associate
                       {getSortIcon('invAssociate')}
                     </div>
                     <Select value={columnFilters.invAssociate} onValueChange={(value) => updateColumnFilter("invAssociate", value)}>
