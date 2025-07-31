@@ -394,331 +394,344 @@ export const SubmissionTable = ({
         <div className="overflow-x-auto">
           <Table className="relative">
             <TableHeader>
-              <TableRow className="bg-muted/50">
-                <TableHead className="w-12 pt-6 sticky left-0 bg-muted z-30 border-r border-border">
+              {/* Column Headers Row - Blue Background */}
+              <TableRow className="bg-blue-600 hover:bg-blue-600">
+                <TableHead className="w-12 sticky left-0 bg-blue-600 z-30 border-r border-blue-500 text-white font-semibold">
                 </TableHead>
-                <TableHead className="font-semibold min-w-[200px] pt-6 sticky left-12 bg-muted z-30 border-r border-border">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('operator')}>
-                      Operator
-                      {getSortIcon('operator')}
-                    </div>
-                    <Select value={columnFilters.operator} onValueChange={(value) => updateColumnFilter("operator", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("operator").map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                <TableHead className="min-w-[200px] sticky left-12 bg-blue-600 z-30 border-r border-blue-500 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('operator')}>
+                    Operator
+                    {getSortIcon('operator')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[180px] pt-6 sticky left-[212px] bg-muted z-30 border-r border-border">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('category')}>
-                      Category
-                      {getSortIcon('category')}
-                    </div>
-                    <Select value={columnFilters.category} onValueChange={(value) => updateColumnFilter("category", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("category").map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                <TableHead className="min-w-[180px] sticky left-[212px] bg-blue-600 z-30 border-r border-blue-500 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('category')}>
+                    Category
+                    {getSortIcon('category')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[200px] pt-6 sticky left-[392px] bg-muted z-30 border-r border-border">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('reportType')}>
-                      Report Type
-                      {getSortIcon('reportType')}
-                    </div>
-                    <Select value={columnFilters.reportType} onValueChange={(value) => updateColumnFilter("reportType", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("reportType").map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                <TableHead className="min-w-[200px] sticky left-[392px] bg-blue-600 z-30 border-r border-blue-500 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('reportType')}>
+                    Report Type
+                    {getSortIcon('reportType')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[120px] pt-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('status')}>
-                      Status
-                      {getSortIcon('status')}
-                    </div>
-                    <Select value={columnFilters.status} onValueChange={(value) => updateColumnFilter("status", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("status").map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                <TableHead className="min-w-[120px] bg-blue-600 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('status')}>
+                    Status
+                    {getSortIcon('status')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[140px] pt-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('reviewerApprover')}>
-                      Reviewer/Approver
-                      {getSortIcon('reviewerApprover')}
-                    </div>
-                    <Select value={columnFilters.reviewerApprover} onValueChange={(value) => updateColumnFilter("reviewerApprover", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("reviewerApprover").map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                <TableHead className="min-w-[140px] bg-blue-600 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('reviewerApprover')}>
+                    Reviewer/Approver
+                    {getSortIcon('reviewerApprover')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[120px] pt-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('dueDate')}>
-                      Due Date
-                      {getSortIcon('dueDate')}
-                    </div>
-                    <div className="flex gap-1">
-                      <Select value={columnFilters.dueDateYear} onValueChange={(value) => updateColumnFilter("dueDateYear", value)}>
-                        <SelectTrigger className="h-6 text-xs flex-1">
-                          <SelectValue placeholder="Year" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="all">All Years</SelectItem>
-                          {getUniqueYears("dueDate").map(year => (
-                            <SelectItem key={year} value={year}>{year}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <Select value={columnFilters.dueDateMonth} onValueChange={(value) => updateColumnFilter("dueDateMonth", value)}>
-                        <SelectTrigger className="h-6 text-xs flex-1">
-                          <SelectValue placeholder="Mon" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="all">All</SelectItem>
-                          {getUniqueMonths("dueDate", columnFilters.dueDateYear !== "all" ? columnFilters.dueDateYear : undefined).map(month => (
-                            <SelectItem key={month} value={month}>{month}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
+                <TableHead className="min-w-[120px] bg-blue-600 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('dueDate')}>
+                    Due Date
+                    {getSortIcon('dueDate')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[120px] pt-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('receivedDate')}>
-                      Submitted Date
-                      {getSortIcon('receivedDate')}
-                    </div>
-                    <div className="flex gap-1">
-                      <Select value={columnFilters.submittedDateYear} onValueChange={(value) => updateColumnFilter("submittedDateYear", value)}>
-                        <SelectTrigger className="h-6 text-xs flex-1">
-                          <SelectValue placeholder="Year" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="all">All Years</SelectItem>
-                          {getUniqueYears("receivedDate").map(year => (
-                            <SelectItem key={year} value={year}>{year}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <Select value={columnFilters.submittedDateMonth} onValueChange={(value) => updateColumnFilter("submittedDateMonth", value)}>
-                        <SelectTrigger className="h-6 text-xs flex-1">
-                          <SelectValue placeholder="Mon" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="all">All</SelectItem>
-                          {getUniqueMonths("receivedDate", columnFilters.submittedDateYear !== "all" ? columnFilters.submittedDateYear : undefined).map(month => (
-                            <SelectItem key={month} value={month}>{month}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
+                <TableHead className="min-w-[120px] bg-blue-600 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('receivedDate')}>
+                    Submitted Date
+                    {getSortIcon('receivedDate')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[120px] pt-6">
+                <TableHead className="min-w-[120px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('daysUnderStatus')}>
                     # of Days under Status
                     {getSortIcon('daysUnderStatus')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[140px] pt-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('frequency')}>
-                      Frequency
-                      {getSortIcon('frequency')}
-                    </div>
-                    <Select value={columnFilters.frequency} onValueChange={(value) => updateColumnFilter("frequency", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("frequency").map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                <TableHead className="min-w-[140px] bg-blue-600 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('frequency')}>
+                    Frequency
+                    {getSortIcon('frequency')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[120px] pt-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('period')}>
-                      Period
-                      {getSortIcon('period')}
-                    </div>
-                    <Select value={columnFilters.period} onValueChange={(value) => updateColumnFilter("period", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getDynamicPeriodOptions().map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                <TableHead className="min-w-[120px] bg-blue-600 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('period')}>
+                    Period
+                    {getSortIcon('period')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[180px] pt-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('leaseName')}>
-                      Lease Name
-                      {getSortIcon('leaseName')}
-                    </div>
-                    <Select value={columnFilters.leaseName} onValueChange={(value) => updateColumnFilter("leaseName", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("leaseName").map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                <TableHead className="min-w-[180px] bg-blue-600 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('leaseName')}>
+                    Lease Name
+                    {getSortIcon('leaseName')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[140px] pt-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('properties')}>
-                      Properties
-                      {getSortIcon('properties')}
-                    </div>
-                    <Select value={columnFilters.properties} onValueChange={(value) => updateColumnFilter("properties", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("properties").map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                <TableHead className="min-w-[140px] bg-blue-600 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('properties')}>
+                    Properties
+                    {getSortIcon('properties')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[140px] pt-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('assetManager')}>
-                      Asset Manager
-                      {getSortIcon('assetManager')}
-                    </div>
-                    <Select value={columnFilters.assetManager} onValueChange={(value) => updateColumnFilter("assetManager", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("assetManager").map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                <TableHead className="min-w-[140px] bg-blue-600 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('assetManager')}>
+                    Asset Manager
+                    {getSortIcon('assetManager')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[140px] pt-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('invManager')}>
-                      Investment Manager
-                      {getSortIcon('invManager')}
-                    </div>
-                    <Select value={columnFilters.invManager} onValueChange={(value) => updateColumnFilter("invManager", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("invManager").map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                <TableHead className="min-w-[140px] bg-blue-600 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('invManager')}>
+                    Investment Manager
+                    {getSortIcon('invManager')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[140px] pt-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('leaseAdmin')}>
-                      Lease Admin
-                      {getSortIcon('leaseAdmin')}
-                    </div>
-                    <Select value={columnFilters.leaseAdmin} onValueChange={(value) => updateColumnFilter("leaseAdmin", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("leaseAdmin").map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                <TableHead className="min-w-[140px] bg-blue-600 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('leaseAdmin')}>
+                    Lease Admin
+                    {getSortIcon('leaseAdmin')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[140px] pt-6">
-                  <div className="space-y-1">
-                    <div className="flex items-center cursor-pointer" onClick={() => handleSort('invAssociate')}>
-                      Investment Associate
-                      {getSortIcon('invAssociate')}
-                    </div>
-                    <Select value={columnFilters.invAssociate} onValueChange={(value) => updateColumnFilter("invAssociate", value)}>
-                      <SelectTrigger className="h-7 text-xs">
-                        <SelectValue placeholder="All" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        {getUniqueValues("invAssociate").map(value => (
-                          <SelectItem key={value} value={value}>{value}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                <TableHead className="min-w-[140px] bg-blue-600 text-white font-semibold">
+                  <div className="flex items-center cursor-pointer" onClick={() => handleSort('invAssociate')}>
+                    Investment Associate
+                    {getSortIcon('invAssociate')}
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[200px] pt-6">
+                <TableHead className="min-w-[200px] bg-blue-600 text-white font-semibold">
                   <div className="flex items-center cursor-pointer" onClick={() => handleSort('comments')}>
                     Comments
                     {getSortIcon('comments')}
                   </div>
+                </TableHead>
+              </TableRow>
+              
+              {/* Filters Row - Below Headers */}
+              <TableRow className="bg-muted/30">
+                <TableHead className="w-12 py-2 sticky left-0 bg-muted/30 z-30 border-r border-border">
+                </TableHead>
+                <TableHead className="min-w-[200px] py-2 sticky left-12 bg-muted/30 z-30 border-r border-border">
+                  <Select value={columnFilters.operator} onValueChange={(value) => updateColumnFilter("operator", value)}>
+                    <SelectTrigger className="h-7 text-xs">
+                      <SelectValue placeholder="All" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border border-border z-50">
+                      <SelectItem value="all">All</SelectItem>
+                      {getUniqueValues("operator").map(value => (
+                        <SelectItem key={value} value={value}>{value}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </TableHead>
+                <TableHead className="min-w-[180px] py-2 sticky left-[212px] bg-muted/30 z-30 border-r border-border">
+                  <Select value={columnFilters.category} onValueChange={(value) => updateColumnFilter("category", value)}>
+                    <SelectTrigger className="h-7 text-xs">
+                      <SelectValue placeholder="All" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border border-border z-50">
+                      <SelectItem value="all">All</SelectItem>
+                      {getUniqueValues("category").map(value => (
+                        <SelectItem key={value} value={value}>{value}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </TableHead>
+                <TableHead className="min-w-[200px] py-2 sticky left-[392px] bg-muted/30 z-30 border-r border-border">
+                  <Select value={columnFilters.reportType} onValueChange={(value) => updateColumnFilter("reportType", value)}>
+                    <SelectTrigger className="h-7 text-xs">
+                      <SelectValue placeholder="All" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border border-border z-50">
+                      <SelectItem value="all">All</SelectItem>
+                      {getUniqueValues("reportType").map(value => (
+                        <SelectItem key={value} value={value}>{value}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </TableHead>
+                <TableHead className="min-w-[120px] py-2">
+                  <Select value={columnFilters.status} onValueChange={(value) => updateColumnFilter("status", value)}>
+                    <SelectTrigger className="h-7 text-xs">
+                      <SelectValue placeholder="All" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border border-border z-50">
+                      <SelectItem value="all">All</SelectItem>
+                      {getUniqueValues("status").map(value => (
+                        <SelectItem key={value} value={value}>{value}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </TableHead>
+                <TableHead className="min-w-[140px] py-2">
+                  <Select value={columnFilters.reviewerApprover} onValueChange={(value) => updateColumnFilter("reviewerApprover", value)}>
+                    <SelectTrigger className="h-7 text-xs">
+                      <SelectValue placeholder="All" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border border-border z-50">
+                      <SelectItem value="all">All</SelectItem>
+                      {getUniqueValues("reviewerApprover").map(value => (
+                        <SelectItem key={value} value={value}>{value}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </TableHead>
+                <TableHead className="min-w-[120px] py-2">
+                  <div className="flex gap-1">
+                    <Select value={columnFilters.dueDateYear} onValueChange={(value) => updateColumnFilter("dueDateYear", value)}>
+                      <SelectTrigger className="h-6 text-xs flex-1">
+                        <SelectValue placeholder="Year" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-background border border-border z-50">
+                        <SelectItem value="all">All Years</SelectItem>
+                        {getUniqueYears("dueDate").map(year => (
+                          <SelectItem key={year} value={year}>{year}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <Select value={columnFilters.dueDateMonth} onValueChange={(value) => updateColumnFilter("dueDateMonth", value)}>
+                      <SelectTrigger className="h-6 text-xs flex-1">
+                        <SelectValue placeholder="Mon" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-background border border-border z-50">
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueMonths("dueDate", columnFilters.dueDateYear !== "all" ? columnFilters.dueDateYear : undefined).map(month => (
+                          <SelectItem key={month} value={month}>{month}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="min-w-[120px] py-2">
+                  <div className="flex gap-1">
+                    <Select value={columnFilters.submittedDateYear} onValueChange={(value) => updateColumnFilter("submittedDateYear", value)}>
+                      <SelectTrigger className="h-6 text-xs flex-1">
+                        <SelectValue placeholder="Year" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-background border border-border z-50">
+                        <SelectItem value="all">All Years</SelectItem>
+                        {getUniqueYears("receivedDate").map(year => (
+                          <SelectItem key={year} value={year}>{year}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <Select value={columnFilters.submittedDateMonth} onValueChange={(value) => updateColumnFilter("submittedDateMonth", value)}>
+                      <SelectTrigger className="h-6 text-xs flex-1">
+                        <SelectValue placeholder="Mon" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-background border border-border z-50">
+                        <SelectItem value="all">All</SelectItem>
+                        {getUniqueMonths("receivedDate", columnFilters.submittedDateYear !== "all" ? columnFilters.submittedDateYear : undefined).map(month => (
+                          <SelectItem key={month} value={month}>{month}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableHead>
+                <TableHead className="min-w-[120px] py-2">
+                  {/* No filter for Days under Status */}
+                </TableHead>
+                <TableHead className="min-w-[140px] py-2">
+                  <Select value={columnFilters.frequency} onValueChange={(value) => updateColumnFilter("frequency", value)}>
+                    <SelectTrigger className="h-7 text-xs">
+                      <SelectValue placeholder="All" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border border-border z-50">
+                      <SelectItem value="all">All</SelectItem>
+                      {getUniqueValues("frequency").map(value => (
+                        <SelectItem key={value} value={value}>{value}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </TableHead>
+                <TableHead className="min-w-[120px] py-2">
+                  <Select value={columnFilters.period} onValueChange={(value) => updateColumnFilter("period", value)}>
+                    <SelectTrigger className="h-7 text-xs">
+                      <SelectValue placeholder="All" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border border-border z-50">
+                      <SelectItem value="all">All</SelectItem>
+                      {getDynamicPeriodOptions().map(value => (
+                        <SelectItem key={value} value={value}>{value}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </TableHead>
+                <TableHead className="min-w-[180px] py-2">
+                  <Select value={columnFilters.leaseName} onValueChange={(value) => updateColumnFilter("leaseName", value)}>
+                    <SelectTrigger className="h-7 text-xs">
+                      <SelectValue placeholder="All" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border border-border z-50">
+                      <SelectItem value="all">All</SelectItem>
+                      {getUniqueValues("leaseName").map(value => (
+                        <SelectItem key={value} value={value}>{value}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </TableHead>
+                <TableHead className="min-w-[140px] py-2">
+                  <Select value={columnFilters.properties} onValueChange={(value) => updateColumnFilter("properties", value)}>
+                    <SelectTrigger className="h-7 text-xs">
+                      <SelectValue placeholder="All" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border border-border z-50">
+                      <SelectItem value="all">All</SelectItem>
+                      {getUniqueValues("properties").map(value => (
+                        <SelectItem key={value} value={value}>{value}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </TableHead>
+                <TableHead className="min-w-[140px] py-2">
+                  <Select value={columnFilters.assetManager} onValueChange={(value) => updateColumnFilter("assetManager", value)}>
+                    <SelectTrigger className="h-7 text-xs">
+                      <SelectValue placeholder="All" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border border-border z-50">
+                      <SelectItem value="all">All</SelectItem>
+                      {getUniqueValues("assetManager").map(value => (
+                        <SelectItem key={value} value={value}>{value}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </TableHead>
+                <TableHead className="min-w-[140px] py-2">
+                  <Select value={columnFilters.invManager} onValueChange={(value) => updateColumnFilter("invManager", value)}>
+                    <SelectTrigger className="h-7 text-xs">
+                      <SelectValue placeholder="All" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border border-border z-50">
+                      <SelectItem value="all">All</SelectItem>
+                      {getUniqueValues("invManager").map(value => (
+                        <SelectItem key={value} value={value}>{value}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </TableHead>
+                <TableHead className="min-w-[140px] py-2">
+                  <Select value={columnFilters.leaseAdmin} onValueChange={(value) => updateColumnFilter("leaseAdmin", value)}>
+                    <SelectTrigger className="h-7 text-xs">
+                      <SelectValue placeholder="All" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border border-border z-50">
+                      <SelectItem value="all">All</SelectItem>
+                      {getUniqueValues("leaseAdmin").map(value => (
+                        <SelectItem key={value} value={value}>{value}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </TableHead>
+                <TableHead className="min-w-[140px] py-2">
+                  <Select value={columnFilters.invAssociate} onValueChange={(value) => updateColumnFilter("invAssociate", value)}>
+                    <SelectTrigger className="h-7 text-xs">
+                      <SelectValue placeholder="All" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border border-border z-50">
+                      <SelectItem value="all">All</SelectItem>
+                      {getUniqueValues("invAssociate").map(value => (
+                        <SelectItem key={value} value={value}>{value}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </TableHead>
+                <TableHead className="min-w-[200px] py-2">
+                  {/* No filter for Comments */}
                 </TableHead>
               </TableRow>
             </TableHeader>
