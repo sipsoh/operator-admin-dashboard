@@ -392,9 +392,9 @@ export const SubmissionTable = ({
           <Table className="relative">
             <TableHeader>
               <TableRow className="bg-muted/50">
-                <TableHead className="w-12 pt-6 sticky left-0 bg-muted/50 z-20">
+                <TableHead className="w-12 pt-6 sticky left-0 bg-muted z-30 border-r border-border">
                 </TableHead>
-                <TableHead className="font-semibold min-w-[200px] pt-6 sticky left-12 bg-muted/50 z-20">
+                <TableHead className="font-semibold min-w-[200px] pt-6 sticky left-12 bg-muted z-30 border-r border-border">
                   <div className="space-y-1">
                     <div className="flex items-center cursor-pointer" onClick={() => handleSort('operator')}>
                       Operator
@@ -413,7 +413,7 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[180px] pt-6 sticky left-[212px] bg-muted/50 z-20">
+                <TableHead className="font-semibold min-w-[180px] pt-6 sticky left-[212px] bg-muted z-30 border-r border-border">
                   <div className="space-y-1">
                     <div className="flex items-center cursor-pointer" onClick={() => handleSort('category')}>
                       Category
@@ -432,7 +432,7 @@ export const SubmissionTable = ({
                     </Select>
                   </div>
                 </TableHead>
-                <TableHead className="font-semibold min-w-[200px] pt-6 sticky left-[392px] bg-muted/50 z-20">
+                <TableHead className="font-semibold min-w-[200px] pt-6 sticky left-[392px] bg-muted z-30 border-r border-border">
                   <div className="space-y-1">
                     <div className="flex items-center cursor-pointer" onClick={() => handleSort('reportType')}>
                       Report Type
@@ -752,7 +752,7 @@ export const SubmissionTable = ({
                         key={submission.id} 
                         className="hover:bg-muted/30 transition-smooth cursor-pointer animate-fade-in"
                       >
-                        <TableCell className="sticky left-0 bg-card z-10">
+                        <TableCell className="sticky left-0 bg-card z-20 border-r border-border">
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                               <Button variant="ghost" size="sm">
@@ -775,13 +775,13 @@ export const SubmissionTable = ({
                              </DropdownMenuContent>
                            </DropdownMenu>
                          </TableCell>
-                        <TableCell className="sticky left-12 bg-card z-10">
+                        <TableCell className="sticky left-12 bg-card z-20 border-r border-border">
                           <div className="font-medium text-foreground">{submission.operator}</div>
                         </TableCell>
-                        <TableCell className="sticky left-[212px] bg-card z-10">
+                        <TableCell className="sticky left-[212px] bg-card z-20 border-r border-border">
                           <span className="text-sm">{submission.category}</span>
                         </TableCell>
-                         <TableCell className="sticky left-[392px] bg-card z-10 text-left">
+                         <TableCell className="sticky left-[392px] bg-card z-20 text-left border-r border-border">
                            <button
                              className="text-sm font-medium text-report-type hover:text-report-type/80 underline cursor-pointer transition-colors text-left"
                              onClick={() => handleViewDetails(submission)}

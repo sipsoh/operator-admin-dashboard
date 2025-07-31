@@ -146,4 +146,18 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Fix for sticky table headers */
+  .table-header-sticky {
+    position: sticky;
+    top: 0;
+    background: hsl(var(--muted));
+    z-index: 30;
+  }
+
+  /* Ensure proper background for sticky columns */
+  .sticky-column {
+    background: hsl(var(--card));
+    z-index: 20;
+  }
 }
