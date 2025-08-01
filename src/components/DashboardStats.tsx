@@ -105,7 +105,7 @@ export const DashboardStats = ({
     {
       title: "Non-Compliant",
       value: stats.nonCompliant,
-      color: "sabra-red" as const,
+      color: "sabra-orange" as const,
       filterType: "non-compliant"
     },
     {
