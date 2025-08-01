@@ -109,7 +109,7 @@ export const EditSubmissionDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Edit Submission - {submission.id}</DialogTitle>
+          <DialogTitle>Submission Details</DialogTitle>
         </DialogHeader>
         
         <div className="grid grid-cols-2 gap-6">
@@ -264,17 +264,6 @@ export const EditSubmissionDialog = ({
           </div>
         </div>
 
-        {/* Comments Section */}
-        <div className="space-y-2">
-          <Label htmlFor="comments">Comments</Label>
-          <Textarea
-            id="comments"
-            value={formData.comments || ""}
-            onChange={(e) => handleInputChange("comments", e.target.value)}
-            placeholder="Enter any additional comments..."
-            rows={3}
-          />
-        </div>
 
         {/* Actions */}
         <div className="flex justify-end space-x-2 pt-4 border-t border-border">
