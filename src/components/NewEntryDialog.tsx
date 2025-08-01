@@ -130,6 +130,10 @@ export const NewEntryDialog = ({
     notes: ""
   });
 
+  const [customReportTypes, setCustomReportTypes] = useState<Record<string, ReportTypeConfig>>({});
+  const [newReportTypeName, setNewReportTypeName] = useState("");
+  const [showAddReportType, setShowAddReportType] = useState(false);
+
   const [workflowTasks, setWorkflowTasks] = useState<Array<{
     reportType: string;
     reportParty: string;
@@ -165,7 +169,8 @@ export const NewEntryDialog = ({
       }));
       
       // Add default workflow task for this report type
-      const config = reportTypeConfigs[reportType];
+      const allReportTypes = { ...reportTypeConfigs, ...customReportTypes };
+      const config = allReportTypes[reportType];
       if (config) {
         setWorkflowTasks(prev => [...prev, {
           reportType,
@@ -185,6 +190,47 @@ export const NewEntryDialog = ({
       // Remove workflow task for this report type
       setWorkflowTasks(prev => prev.filter(task => task.reportType !== reportType));
     }
+  };
+
+  const addCustomReportType = () => {
+    if (!newReportTypeName.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter a report type name.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const allReportTypes = { ...reportTypeConfigs, ...customReportTypes };
+    if (allReportTypes[newReportTypeName]) {
+      toast({
+        title: "Error", 
+        description: "This report type already exists.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const newConfig: ReportTypeConfig = {
+      name: newReportTypeName,
+      reportParty: ["Borrower", "Guarantor", "Pref Equity", "Tenant"],
+      frequency: ["Annual", "Quarterly", "Monthly"],
+      defaultFrequency: "Annual"
+    };
+
+    setCustomReportTypes(prev => ({
+      ...prev,
+      [newReportTypeName]: newConfig
+    }));
+
+    setNewReportTypeName("");
+    setShowAddReportType(false);
+
+    toast({
+      title: "Success",
+      description: "New report type added successfully.",
+    });
   };
 
   const updateWorkflowTask = (index: number, field: string, value: any) => {
@@ -242,6 +288,9 @@ export const NewEntryDialog = ({
       notes: ""
     });
     setWorkflowTasks([]);
+    setCustomReportTypes({});
+    setNewReportTypeName("");
+    setShowAddReportType(false);
     onOpenChange(false);
   };
 
@@ -306,9 +355,56 @@ export const NewEntryDialog = ({
           {/* Middle Column - Report Types */}
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label>Report Types *</Label>
+              <div className="flex items-center justify-between">
+                <Label>Report Types *</Label>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowAddReportType(!showAddReportType)}
+                  className="h-7 px-2 text-xs"
+                >
+                  <Plus className="h-3 w-3 mr-1" />
+                  Add New
+                </Button>
+              </div>
+              
+              {showAddReportType && (
+                <div className="flex gap-2 p-2 border rounded bg-muted/30">
+                  <Input
+                    placeholder="Enter new report type name"
+                    value={newReportTypeName}
+                    onChange={(e) => setNewReportTypeName(e.target.value)}
+                    className="h-8 text-xs"
+                    onKeyPress={(e) => e.key === 'Enter' && addCustomReportType()}
+                  />
+                  <Button
+                    type="button"
+                    onClick={addCustomReportType}
+                    size="sm"
+                    className="h-8 px-3 text-xs"
+                  >
+                    Add
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => {
+                      setShowAddReportType(false);
+                      setNewReportTypeName("");
+                    }}
+                    size="sm"
+                    className="h-8 px-3 text-xs"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              )}
+              
               <div className="space-y-2 max-h-80 overflow-y-auto border rounded p-3">
-                {Object.keys(reportTypeConfigs).map(reportType => (
+                {[...Object.keys(reportTypeConfigs), ...Object.keys(customReportTypes)]
+                  .sort()
+                  .map(reportType => (
                   <div key={reportType} className="flex items-start space-x-2">
                     <Checkbox
                       id={reportType}
@@ -357,7 +453,7 @@ export const NewEntryDialog = ({
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            {reportTypeConfigs[task.reportType]?.reportParty.map(party => (
+                            {(reportTypeConfigs[task.reportType] || customReportTypes[task.reportType])?.reportParty.map(party => (
                               <SelectItem key={party} value={party}>{party}</SelectItem>
                             ))}
                           </SelectContent>
@@ -374,7 +470,7 @@ export const NewEntryDialog = ({
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            {reportTypeConfigs[task.reportType]?.frequency.map(freq => (
+                            {(reportTypeConfigs[task.reportType] || customReportTypes[task.reportType])?.frequency.map(freq => (
                               <SelectItem key={freq} value={freq}>{freq}</SelectItem>
                             ))}
                           </SelectContent>
