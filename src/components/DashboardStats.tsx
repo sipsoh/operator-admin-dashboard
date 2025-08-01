@@ -38,7 +38,7 @@ const StatCard = ({ title, value, color, isActive, onClick, filterType }: StatCa
     >
       <CardContent className="p-6">
         <div className="text-center">
-          <p className="text-sm font-medium text-muted-foreground">{title}</p>
+          <p className="text-sm font-medium text-foreground">{title}</p>
           <div className={cn(
             "inline-flex items-center justify-center w-16 h-16 rounded-lg mt-2",
             color === "sabra-blue" && "bg-sabra-blue",
