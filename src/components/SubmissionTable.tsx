@@ -83,7 +83,8 @@ export const SubmissionTable = ({
     dueDateYear: "all",
     dueDateMonth: "all",
     submittedDateYear: "all",
-    submittedDateMonth: "all"
+    submittedDateMonth: "all",
+    daysUnderStatus: "all"
   });
 
   // Sorting state
@@ -176,7 +177,8 @@ export const SubmissionTable = ({
       dueDateYear: "all",
       dueDateMonth: "all",
       submittedDateYear: "all",
-      submittedDateMonth: "all"
+      submittedDateMonth: "all",
+      daysUnderStatus: "all"
     });
   };
 
@@ -257,6 +259,17 @@ export const SubmissionTable = ({
       const submittedDate = new Date(submission.receivedDate);
       if (columnFilters.submittedDateYear !== "all" && submittedDate.getFullYear().toString() !== columnFilters.submittedDateYear) return false;
       if (columnFilters.submittedDateMonth !== "all" && submittedDate.toLocaleDateString('en-US', { month: 'short' }) !== columnFilters.submittedDateMonth) return false;
+    }
+    
+    // Days under status filter
+    if (columnFilters.daysUnderStatus !== "all") {
+      const days = submission.daysUnderStatus;
+      const filterValue = columnFilters.daysUnderStatus;
+      
+      if (filterValue === "0-7" && (days < 0 || days > 7)) return false;
+      if (filterValue === "8-30" && (days < 8 || days > 30)) return false;
+      if (filterValue === "31-90" && (days < 31 || days > 90)) return false;
+      if (filterValue === "91+" && days < 91) return false;
     }
     
     return true;
@@ -668,7 +681,18 @@ export const SubmissionTable = ({
                   </div>
                 </TableHead>
                 <TableHead className="min-w-[120px] py-2">
-                  {/* No filter for Days under Status */}
+                  <Select value={columnFilters.daysUnderStatus} onValueChange={(value) => updateColumnFilter("daysUnderStatus", value)}>
+                    <SelectTrigger className="h-7 text-xs">
+                      <SelectValue placeholder="All" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border border-border z-50">
+                      <SelectItem value="all">All</SelectItem>
+                      <SelectItem value="0-7">0-7 days</SelectItem>
+                      <SelectItem value="8-30">8-30 days</SelectItem>
+                      <SelectItem value="31-90">31-90 days</SelectItem>
+                      <SelectItem value="91+">91+ days</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </TableHead>
                 <TableHead className="min-w-[140px] py-2">
                   <Select value={columnFilters.frequency} onValueChange={(value) => updateColumnFilter("frequency", value)}>
