@@ -88,7 +88,7 @@ export const DashboardStats = ({
     {
       title: "Approved / Compliant",
       value: stats.approved,
-      color: "sabra-green" as const,
+      color: "sabra-red" as const,
       filterType: "approved"
     },
     {
@@ -104,21 +104,9 @@ export const DashboardStats = ({
       filterType: "in-review"
     },
     {
-      title: "Rejected",
-      value: stats.submitted,
-      color: "sabra-red" as const,
-      filterType: "submitted"
-    },
-    {
-      title: "Non-Compliant",
-      value: stats.nonCompliant,
-      color: "sabra-red" as const,
-      filterType: "non-compliant"
-    },
-    {
-      title: "Past Due",
+      title: "Open / Past Due",
       value: stats.overdue,
-      color: "danger" as const,
+      color: "primary" as const,
       filterType: "overdue"
     }
   ];
