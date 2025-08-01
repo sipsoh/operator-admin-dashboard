@@ -93,7 +93,7 @@ export const DashboardStats = ({
     {
       title: "Total Submissions",
       value: stats.total,
-      color: "primary" as const,
+      color: "sabra-blue" as const,
       filterType: "all"
     },
     {
