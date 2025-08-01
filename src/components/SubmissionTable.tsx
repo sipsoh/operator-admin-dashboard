@@ -207,8 +207,8 @@ export const SubmissionTable = ({
 
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
       year: 'numeric'
     });
   };
@@ -858,25 +858,25 @@ export const SubmissionTable = ({
                          <TableCell>
                            <span className="text-sm">{submission.reviewerApprover}</span>
                          </TableCell>
-                         <TableCell>
-                           <div className="text-sm">
-                             {submission.dueDate}
-                           </div>
-                         </TableCell>
-                         <TableCell>
-                           {submission.receivedDate ? (
-                             <div className="text-sm">
-                               {submission.receivedDate}
-                             </div>
-                           ) : (
-                             <span className="text-sm text-muted-foreground">-</span>
-                           )}
-                         </TableCell>
-                         <TableCell>
-                           <span className="text-sm font-medium text-center">
-                             {submission.daysUnderStatus}
-                           </span>
-                         </TableCell>
+                          <TableCell>
+                            <div className="text-sm">
+                              {formatDate(submission.dueDate)}
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            {submission.receivedDate ? (
+                              <div className="text-sm">
+                                {formatDate(submission.receivedDate)}
+                              </div>
+                            ) : (
+                              <span className="text-sm text-muted-foreground">-</span>
+                            )}
+                          </TableCell>
+                          <TableCell>
+                            <span className={`text-sm font-medium text-center ${submission.daysUnderStatus > 14 ? 'text-danger' : ''}`}>
+                              {submission.daysUnderStatus}
+                            </span>
+                          </TableCell>
                          <TableCell>
                            <span className="text-sm">{submission.frequency}</span>
                          </TableCell>
