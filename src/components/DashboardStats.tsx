@@ -43,9 +43,11 @@ const StatCard = ({ title, value, color, isActive, onClick, filterType }: StatCa
             "inline-flex items-center justify-center w-16 h-16 rounded-lg mt-2",
             color === "sabra-blue" && "bg-sabra-blue",
             color === "sabra-red" && "bg-sabra-red", 
+            color === "sabra-green" && "bg-sabra-green",
             color === "sabra-orange" && "bg-sabra-orange",
             color === "sabra-purple" && "bg-sabra-purple",
-            color === "primary" && "bg-primary"
+            color === "primary" && "bg-primary",
+            color === "danger" && "bg-danger"
           )}>
             <p className="text-2xl font-bold text-white">{value}</p>
           </div>
@@ -97,7 +99,7 @@ export const DashboardStats = ({
     {
       title: "Approved / Compliant",
       value: stats.approved,
-      color: "sabra-red" as const,
+      color: "sabra-green" as const,
       filterType: "approved"
     },
     {
@@ -115,13 +117,13 @@ export const DashboardStats = ({
     {
       title: "Under Review",
       value: stats.inReview,
-      color: "sabra-purple" as const,
+      color: "sabra-red" as const,
       filterType: "in-review"
     },
     {
       title: "Rejected",
       value: stats.submitted,
-      color: "sabra-red" as const,
+      color: "danger" as const,
       filterType: "submitted"
     },
     {
