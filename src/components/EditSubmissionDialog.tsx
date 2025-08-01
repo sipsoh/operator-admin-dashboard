@@ -192,21 +192,6 @@ export const EditSubmissionDialog = ({
 
           {/* Right Column */}
           <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="status">Status</Label>
-              <Select value={formData.status} onValueChange={(value: Status) => handleInputChange("status", value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select status" />
-                </SelectTrigger>
-                <SelectContent>
-                  {statusOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
 
             <div className="space-y-2">
               <Label htmlFor="frequency">Frequency</Label>
@@ -244,15 +229,6 @@ export const EditSubmissionDialog = ({
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="receivedDate">Received Date</Label>
-              <Input
-                id="receivedDate"
-                type="date"
-                value={formData.receivedDate || ""}
-                onChange={(e) => handleInputChange("receivedDate", e.target.value)}
-              />
-            </div>
 
             <div className="space-y-2">
               <Label htmlFor="leaseName">Lease Name *</Label>
