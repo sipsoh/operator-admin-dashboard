@@ -57,7 +57,7 @@ export const ViewDetailsDialog = ({ submission, open, onOpenChange, onSubmission
         <DialogHeader>
           <DialogTitle className="flex items-center space-x-2">
             <FileText className="h-5 w-5 text-primary" />
-            <span>Submission Details - {submission.id}</span>
+            <span>Submission Details</span>
           </DialogTitle>
         </DialogHeader>
         
