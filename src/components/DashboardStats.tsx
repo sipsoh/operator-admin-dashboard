@@ -117,7 +117,7 @@ export const DashboardStats = ({
     {
       title: "Under Review",
       value: stats.inReview,
-      color: "sabra-red" as const,
+      color: "sabra-purple" as const,
       filterType: "in-review"
     },
     {
