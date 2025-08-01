@@ -39,7 +39,16 @@ const StatCard = ({ title, value, color, isActive, onClick, filterType }: StatCa
       <CardContent className="p-6">
         <div className="text-center">
           <p className="text-sm font-medium text-muted-foreground">{title}</p>
-          <p className="text-2xl font-bold mt-1">{value}</p>
+          <div className={cn(
+            "inline-flex items-center justify-center w-16 h-16 rounded-lg mt-2",
+            color === "sabra-blue" && "bg-sabra-blue",
+            color === "sabra-red" && "bg-sabra-red", 
+            color === "sabra-orange" && "bg-sabra-orange",
+            color === "sabra-purple" && "bg-sabra-purple",
+            color === "primary" && "bg-primary"
+          )}>
+            <p className="text-2xl font-bold text-white">{value}</p>
+          </div>
         </div>
       </CardContent>
     </Card>
