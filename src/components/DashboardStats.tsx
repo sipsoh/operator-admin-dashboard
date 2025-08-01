@@ -47,6 +47,7 @@ const StatCard = ({ title, value, color, isActive, onClick, filterType }: StatCa
             color === "sabra-orange" && "bg-sabra-orange",
             color === "sabra-purple" && "bg-sabra-purple",
             color === "primary" && "bg-primary",
+            color === "warning" && "bg-warning",
             color === "danger" && "bg-danger"
           )}>
             <p className="text-2xl font-bold text-white">{value}</p>
@@ -105,7 +106,7 @@ export const DashboardStats = ({
     {
       title: "Non-Compliant",
       value: stats.nonCompliant,
-      color: "sabra-orange" as const,
+      color: "warning" as const,
       filterType: "non-compliant"
     },
     {
