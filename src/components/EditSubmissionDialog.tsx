@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -40,6 +41,7 @@ export const EditSubmissionDialog = ({
   onSubmissionUpdate 
 }: EditSubmissionDialogProps) => {
   const [formData, setFormData] = useState<Submission | null>(null);
+  const [applyToFutureTasks, setApplyToFutureTasks] = useState(false);
   const { toast } = useToast();
 
   // Initialize form data when submission changes
@@ -262,6 +264,21 @@ export const EditSubmissionDialog = ({
               />
             </div>
           </div>
+        </div>
+
+        {/* Apply to Future Tasks Checkbox */}
+        <div className="flex items-center space-x-2 pt-4">
+          <Checkbox 
+            id="applyToFuture" 
+            checked={applyToFutureTasks}
+            onCheckedChange={(checked) => setApplyToFutureTasks(checked as boolean)}
+          />
+          <Label 
+            htmlFor="applyToFuture" 
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            Make the update applicable for all future tasks
+          </Label>
         </div>
 
 
