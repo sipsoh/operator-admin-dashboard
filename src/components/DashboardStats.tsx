@@ -101,6 +101,12 @@ export const DashboardStats = ({
       filterType: "approved"
     },
     {
+      title: "Non-Compliant",
+      value: stats.nonCompliant,
+      color: "sabra-red" as const,
+      filterType: "non-compliant"
+    },
+    {
       title: "Pending Approval",
       value: stats.pending,
       color: "sabra-orange" as const,
