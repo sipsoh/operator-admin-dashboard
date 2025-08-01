@@ -113,6 +113,12 @@ export const DashboardStats = ({
       filterType: "in-review"
     },
     {
+      title: "Rejected",
+      value: stats.submitted,
+      color: "sabra-red" as const,
+      filterType: "submitted"
+    },
+    {
       title: "Open / Past Due",
       value: stats.overdue,
       color: "primary" as const,
