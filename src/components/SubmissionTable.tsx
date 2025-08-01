@@ -824,10 +824,6 @@ export const SubmissionTable = ({
                                  <Eye className="h-4 w-4 mr-2" />
                                  View Details
                                </DropdownMenuItem>
-                               <DropdownMenuItem onClick={() => handleEditStatus(submission)}>
-                                 <Edit className="h-4 w-4 mr-2" />
-                                 Edit Status
-                               </DropdownMenuItem>
                                <DropdownMenuItem onClick={() => handleAddComment(submission)}>
                                  <MessageSquare className="h-4 w-4 mr-2" />
                                  Add Comment
